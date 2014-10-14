@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script type="text/javascript" src="validate.js"></script>
+<title>Sign UP </title>
+<link rel="stylesheet" href="signup.css" type="text/css" />
+</head>
+<body id="index">
+        <div id="container">
+            <div id="header"><h1>Sign Up</h1></div>
+            <div id="main">
+                <form name="signup" action="signup.php" onsubmit="return validateForm();" method="post">
+                <table cellpadding="0" cellspacing="0" border="0">
+                    <tr>
+                        <td class="form-input-name">UserID</td>
+                        <td class="input"><input type="text" name="username" id="username" placeholder="Username between 8 and 20 chars" autocomplete="off" pattern="^[a-zA-Z][a-zA-Z0-9-_\.]{8,20}$"  required="required" /></td>
+                    </tr>
+                    <tr>
+                        <td class="form-input-name">Full Name</td>
+                        <td class="input"><input type="text" name="fullname" id="fullname" placeholder="Your full Name here..." autocomplete="off" required="required" /></td>
+                    </tr>
+                    <tr>
+                        <td class="form-input-name">Account No</td>
+                        <td class="input"><input type="text" name="address" id="address" placeholder="Your bank Account..." autocomplete="off" required="required"/></td>
+                    </tr>
+                    
+                    <tr>
+                        <td class="form-input-name">Company</td>
+                        <td class="input"><input type="text" name="company" id="company" placeholder="Your Company here..." autocomplete="off" required="required" /></td>
+                    </tr>
+                    <tr>
+                        <td class="form-input-name">Password</td>
+                        <td class="input"><input type="password" name="password" id="password" placeholder="Minimum 1 Ucase, Lcase and number" pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$" autocomplete="off" required="required" /></td>
+                    </tr>
+                    <tr>
+                        <td class="form-input-name">Retype Password</td>
+                        <td class="input"><input type="password" name="repassword" id="repassword" placeholder="Password must contain 1 uppercase, lowercase and number" pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$" autocomplete="off"  required="required"/></td>
+                    </tr>
+                    
+                    <tr>
+                        <td class="form-input-name"><input type="button" value="Log In" onclick="location.href='login.html'"/> </td>
+                        <td><input type="submit" value="Register" align= "left"/></td>
+                    </tr>
+                </table>
+                </form>
+            </div>
+        </div>
+</body>
+</html>
