@@ -83,6 +83,16 @@ section#loginBox {
 	width: 500px;
 }
 
+section#landingPage {
+	background-color: rgb(255,255,255);
+	border: 1px solid rgba(0,0,0,.15);
+	border-radius: 4px;
+	box-shadow: 0 1px 0 rgba(255,255,255,0.2) inset, 0 0 4px rgba(0,0,0,0.2);
+	margin: 40px auto; /*aligns center*/
+	padding: 12px;
+	width: 750px;
+}
+
 /*FORM*/
 form.minimal label {
 	display: block;
@@ -90,10 +100,19 @@ form.minimal label {
 }
 
 	form.minimal input[type="text"],
+	form.minimal input.landingText[type="text"]{
+		width: 90%;
+	}
+	form.minimal input.landingText[type="file"]{
+		width: 90%;
+	}
 	form.minimal input[type="email"],
 	form.minimal input[type="number"],
 	form.minimal input[type="search"],
 	form.minimal input[type="password"],
+	form.minimal input.landingText[type="password"]{
+		width: 90%;
+	}
 	form.minimal textarea {
 		background-color: rgb(255,255,255);
 		border: 1px solid rgb( 186, 186, 186 );
