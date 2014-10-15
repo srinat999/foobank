@@ -1,19 +1,6 @@
 <?php
 
-// Grab User submitted information
-$email = $_POST["username"];
-$pass = $_POST["password"];
-
-// Connect to the database
-$con = mysql_connect("localhost","root","");
-// Make sure we connected succesfully
-if(! $con)
-{
-    die('Connection Failed'.mysql_error());
-}
-
-// Select the database to use 
-mysql_select_db("sudhi",$con);
+include 'db.php';
 
 $result = mysql_query("SELECT L_ID, L_PWD FROM login WHERE L_ID = '$email';");
 

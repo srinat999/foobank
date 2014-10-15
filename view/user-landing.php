@@ -1,3 +1,7 @@
+<?php
+	include '../controllers/transactions.php';
+?>
+
 <html>
 <head>
     <link rel="stylesheet" type="text/css" href="login.css">
@@ -7,6 +11,19 @@
 <h4 align="center">Welcome user!</h4>
 <section id="landingPage">
 	<h3>Transfer history</h3>
+	Hello, today is <?php echo date('l, F jS, Y'); ?>.
+	<table>
+		<tr>
+			<td>Account</td><td>Amount</td><td>Date</td>
+		</tr>
+		<?php
+			echo "Hello";
+			for($i=0; $i<3; ++$i) {
+				echo "<tr><td>$transactions[$i][2]</td><td>$transactions[$i][3]</td><td>$transactions[$i][4]</td></tr>";
+			}
+		?>
+	</table>
+	<a href="">More</a>
 </section>
 <section id="landingPage">
 	<h3>Single Transfer</h3>
