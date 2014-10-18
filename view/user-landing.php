@@ -1,5 +1,6 @@
 <?php
-	include '../controllers/transactions.php';
+	include '../controllers/db.php';
+	$result = mysql_query("SELECT * FROM transactions WHERE user_id=1");
 ?>
 
 <html>
@@ -10,20 +11,23 @@
 <body>
 <h4 align="center">Welcome user!</h4>
 <section id="landingPage">
-	<h3>Transfer history</h3>
-	Hello, today is <?php echo date('l, F jS, Y'); ?>.
-	<table>
+	<h3 align="center">Transfer history</h3>
+	<table align="center" style="width: 100%; border-spacing: 10px; padding: 20px; text-align: center">
 		<tr>
 			<td>Account</td><td>Amount</td><td>Date</td>
 		</tr>
 		<?php
-			echo "Hello";
-			for($i=0; $i<3; ++$i) {
-				echo "<tr><td>$transactions[$i][2]</td><td>$transactions[$i][3]</td><td>$transactions[$i][4]</td></tr>";
+			if($result) {
+				$i=0;
+				while(($row = mysql_fetch_array($result)) || ($i<3)) {
+					echo "<tr><td>$row[1]</td><td>$row[2]</td><td>$row[3]</td></tr>";
+					$i++;
+				}
 			}
+			mysql_close($con)
 		?>
 	</table>
-	<a href="">More</a>
+	<a href="fulltransactions.php">More</a>
 </section>
 <section id="landingPage">
 	<h3>Single Transfer</h3>
