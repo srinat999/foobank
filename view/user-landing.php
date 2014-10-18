@@ -20,7 +20,7 @@
 			if($result) {
 				$i=0;
 				while(($row = mysql_fetch_array($result)) || ($i<3)) {
-					echo "<tr><td>$row[1]</td><td>$row[2]</td><td>$row[3]</td></tr>";
+					echo "<tr><td>$row[2]</td><td>$row[3]</td><td>$row[4]</td></tr>";
 					$i++;
 				}
 			}
@@ -31,20 +31,20 @@
 </section>
 <section id="landingPage">
 	<h3>Single Transfer</h3>
-		<form method="post" class="minimal" action="login.php">
+		<form method="post" class="minimal" action="dotransaction.php">
 			<table cellpadding="0" cellspacing="0" border="0" width="90%">
 				<tr>
 					<td>
 						<label for="username">
 							Account No.:</br>
-							<input type="text" name="username" class="landingText" id="username" placeholder="Username must be between 8 and 20 characters" pattern="^[a-zA-Z][a-zA-Z0-9-_\.]{8,20}$" required="required" />
+							<input type="text" name="account" class="landingText" id="account" required="required" />
 						</label>
 					</td>
 					<td>
-					<label for="password">
-						Amount:</br>
-						<input type="password" name="password" class="landingText" id="password" placeholder="Password must contain 1 uppercase, lowercase and number" pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$" required="required" />
-					</label>
+						<label for="password">
+							Amount:</br>
+							<input type="text" name="amount" class="landingText" id="amount" required="required"/>
+						</label>
 					</td>
 				</tr>
 			</table>
