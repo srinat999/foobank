@@ -1,5 +1,6 @@
 <?php
 	include '../controllers/db.php';
+	// Change this to userid in the session.
 	$result = mysql_query("SELECT * FROM transactions WHERE user_id=1");
 ?>
 
@@ -31,7 +32,7 @@
 </section>
 <section id="landingPage">
 	<h3>Single Transfer</h3>
-		<form method="post" class="minimal" action="dotransaction.php">
+		<form method="post" class="minimal" action="../controllers/dotransaction.php">
 			<table cellpadding="0" cellspacing="0" border="0" width="90%">
 				<tr>
 					<td>

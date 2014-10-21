@@ -1,22 +1,28 @@
 <?php
-
 include 'db.php';
-$result = mysql_query("SELECT * from accounts where account_num=$account");
-$row = mysql_fetch_array($result);
+include 'utils.php';
 
-if(!$row) {
-	alert("No account with that number exists");
-	header("Location: user-landing.php");
-	die();
-} elseif($row[0]<$amount) {
-	alert("You dont have sufficient balance for this transaction");
-	header("Location: user-landing.php");
-	die();
+// Get this from session.
+$userid=1;
+$account=$_POST["account"];
+$amount=$_POST["amount"];
+$result = mysql_query("SELECT * from accounts where user_id=$userid");
+$row = mysql_fetch_array($result);
+if ($row[2]==$account) {
+	mysql_close($con);
+	header("Location: ../view/duplicate_account_error.html");
+} elseif (!doesAccountExist($account)) {
+	mysql_close($con);
+	header("Location: ../view/invalid_account.html");
+} elseif (!checkBalance($userid, $amount)) {
+	mysql_close($con);
+	header("Location: ../view/no_balance_error.html");
 } else {
-	$_SESSION['account']=$account;
+	session_start();
+	$_SESSION['dst_account']=$account;
 	$_SESSION['amount']=$amount;
+	$_SESSION['src_account']=$row[2];
 }
-$userid=$_SESSION['userid'];
 while(true) {
 	$tan_seq=rand(0,99);
 	$result=mysql_query("SELECT tan,expired from tan_numbers where seq_number=$tan_seq and user_id=$userid");
@@ -31,7 +37,7 @@ mysql_close($con);
 
 <html>
 <head>
-    <link rel="stylesheet" type="text/css" href="login.css">
+    <link rel="stylesheet" type="text/css" href="../view/login.css">
 </head>
    
 <body>
