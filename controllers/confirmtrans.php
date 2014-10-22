@@ -6,9 +6,9 @@ $tan=$_POST["tan"];
 session_start();
 $tanInSession=$_SESSION['tan'];
 if ($tanInSession!=$tan) {
-	header("Location: ../view/user-landing.php");
 	mysql_close($con);
-	die();
+	$_SESSION['error']=3;
+	header("Location: ../view/error.php");
 }
 
 $src_account=$_SESSION['src_account'];
@@ -20,10 +20,12 @@ mysql_query("UPDATE tan_numbers SET expired=1 WHERE tan='$tan'");
 submitTrans($src_account, $dst_account, $amount, $userid);
 mysql_close($con);
 if ($account>10000) {
-	header("Location: ../view/invalid_account.html");
-	die();
+	mysql_close($con);
+	$_SESSION['message']=2;
+	header("Location: ../view/succes.php");
 } else {
-	header("Location: ../view/no_balance_error.html");
-	die();
+	mysql_close($con);
+	$_SESSION['message']=1;
+	header("Location: ../view/succes.php");
 }
 ?>

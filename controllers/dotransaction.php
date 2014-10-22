@@ -3,6 +3,7 @@ include 'db.php';
 include 'utils.php';
 
 // Get this from session.
+session_start();
 $userid=1;
 $account=$_POST["account"];
 $amount=$_POST["amount"];
@@ -10,15 +11,17 @@ $result = mysql_query("SELECT * from accounts where user_id=$userid");
 $row = mysql_fetch_array($result);
 if ($row[2]==$account) {
 	mysql_close($con);
-	header("Location: ../view/duplicate_account_error.html");
+	$_SESSION['error']=2;
+	header("Location: ../view/error.php");
 } elseif (!doesAccountExist($account)) {
 	mysql_close($con);
-	header("Location: ../view/invalid_account.html");
+	$_SESSION['error']=1;
+	header("Location: ../view/error.php");
 } elseif (!checkBalance($userid, $amount)) {
 	mysql_close($con);
-	header("Location: ../view/no_balance_error.html");
+	$_SESSION['error']=5;
+	header("Location: ../view/error.php");
 } else {
-	session_start();
 	$_SESSION['dst_account']=$account;
 	$_SESSION['amount']=$amount;
 	$_SESSION['src_account']=$row[2];
