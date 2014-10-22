@@ -6,7 +6,7 @@
 <body>
 <h4 align="center">Welcome user!</h4>
 <section id="landingPage">
-	<?php 
+	<?php
 		session_start();
 		switch ($_SESSION['error']) {
 			case 1:

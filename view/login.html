@@ -6,7 +6,7 @@
 <body>
 <section id="loginBox">
 	<h2>Login</h2>
-	<form method="post" class="minimal" action="login.php">
+	<form method="post" class="minimal" action="../controllers/login.php">
 		<label for="username">
 			Username:
 			<input type="text" name="username" id="username" placeholder="Username must be between 8 and 20 characters" pattern="^[a-zA-Z][a-zA-Z0-9-_\.]{8,20}$" required="required" />
@@ -15,6 +15,15 @@
 			Password:
 			<input type="password" name="password" id="password" placeholder="Password must contain 1 uppercase, lowercase and number" pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$" required="required" />
 		</label>
+        <label for="usertype">
+            <select name ="typeselect" required>
+                <option value="user" selected = "selected">Customer</option>
+                <option value="employee">Employee</option>
+                <option value="admin">Admin</option>
+    
+            </select>
+        </label>     
+        
 		<button type="submit" class="btn-minimal">Sign in</button>
         <input type="button" id="Register" value="Register" class="btn-minimal" onclick="window.top.location.href='Signup.html'"/>
 	</form>

@@ -1,4 +1,5 @@
 <?php
+	include '../web/checkcookie.php';
 	include '../controllers/db.php';
 	$result = mysql_query("SELECT * FROM transactions WHERE user_id=1");
 ?>

@@ -1,7 +1,8 @@
 <?php
 	include '../controllers/db.php';
+	include '../web/checkcookie.php';
 	// Change this to userid in the session.
-	$result = mysql_query("SELECT * FROM transactions WHERE user_id=1");
+	$result = mysql_query("SELECT * FROM transactions WHERE (user_id=1 & is_approved=1) ORDER BY creation_date DESC");
 ?>
 
 <html>
@@ -20,7 +21,7 @@
 		<?php
 			if($result) {
 				$i=0;
-				while(($row = mysql_fetch_array($result)) || ($i<3)) {
+				while(($row = mysql_fetch_array($result)) && ($i<3)) {
 					echo "<tr><td>$row[2]</td><td>$row[3]</td><td>$row[4]</td></tr>";
 					$i++;
 				}
