@@ -14,14 +14,14 @@ using std::string;
 
 const int MAX_CHARS_PER_LINE = 512;
 const int MAX_TOKENS_PER_LINE = 2;
-char* const DELIMITER = ",";
+const char*  DELIMITER = ",";
 
 int main(int argc, char * ARGV [])
 {
   long int sum = 0;
   stringstream ss,file_path;
-  ss << "[";
-  string jsontemp,json,file;
+  ss << "{\"transactions\": [";
+  string jsontemp,jsontrans,json,file;
   ifstream fin;
   file_path << "/home/samurai/Desktop/⁄var⁄www/ScTeam11/" << ARGV[1];
   file = file_path.str();
@@ -60,15 +60,15 @@ int main(int argc, char * ARGV [])
 	//Construct a Json string 
 	//ss << "{\"srcacc\":" << token[0] << ",\"destacc\":" << token[1] << ",\"amount\":" << token[2] << ",\"tan\":\"" << token[3] << "\"}, ";
 	ss << "{\"destacc\":" << token[0] << ",\"amount\":" << token[1] << "}, ";
-	sum = sum + atol(token[1]);
-	
+	sum = sum + atol(token[1]);	
   }
-  ss << "{\"sum\":" << sum << "}";
+ 
   jsontemp = ss.str();
-  //json = jsontemp.substr(0,jsontemp.length()-2) + "]";   //remove the last character ","
-  json = jsontemp + "]";
+  jsontrans = jsontemp.substr(0,jsontemp.length()-2) + "],";    //remove the last character ","
+  ss.str(string());  											//free the string stream
+  ss << jsontrans << "\"sum\":" << sum << "}";					//include sum of the transaction amount in the json string
+  json = ss.str();
   cout << json;
   return 1;
 }
-
 
