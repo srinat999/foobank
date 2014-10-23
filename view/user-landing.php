@@ -1,6 +1,6 @@
 <?php
 	include '../controllers/db.php';
-	include '../web/checkcookie.php';
+	//include '../web/checkcookie.php';
 	// Change this to userid in the session.
 	$result = mysql_query("SELECT * FROM transactions WHERE (user_id=1 & is_approved=1) ORDER BY creation_date DESC");
 ?>
@@ -52,16 +52,16 @@
 			</table>
 			<button type="submit" class="btn-minimal">Send</button>
 		</form>
-</section>
+</section>	
 <section id="landingPage">
 	<h3>Bulk Transfer</h3>
-	<form method="post" class="minimal" action="login.php">
+	<form method="post" class="minimal" action="../controllers/bulk_tan.php" enctype="multipart/form-data">
 			<table cellpadding="0" cellspacing="0" border="0" width="90%">
 				<tr>
 					<td>
 						<label for="username">
 							File:</br>
-							<input type="file" name="username" class="landingText" id="username" placeholder="Username must be between 8 and 20 characters" pattern="^[a-zA-Z][a-zA-Z0-9-_\.]{8,20}$" required="required" />
+							<input type="file" name="batchfile" class="landingText" id="batchfile" />
 						</label>
 					</td>
 				</tr>

@@ -29,6 +29,11 @@ function submitTrans($src_account, $dst_account, $amount, $userid) {
 		mysql_query("UPDATE accounts SET balance=balance-$amount where account_num=$src_account");
 		mysql_query("UPDATE accounts SET balance=balance+$amount where account_num=$dst_account");
 	}
-	mysql_close($con);
+}
+
+function getAccountNumber($userid) {
+	$result = mysql_query("SELECT account_num from accounts where user_id=$userid");
+	$row = mysql_fetch_array($result);
+	return $row[0];
 }
 ?>
