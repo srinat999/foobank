@@ -1,10 +1,12 @@
 <?php
 include 'db.php';
 include 'utils.php';
+include '../web/checkcookie.php';
+// Change this to userid in the session.
+$userid=$_COOKIE['TUMsession'];
 
 // Get this from session.
 session_start();
-$userid=1;
 $account=$_POST["account"];
 $amount=$_POST["amount"];
 $result = mysql_query("SELECT * from accounts where user_id=$userid");

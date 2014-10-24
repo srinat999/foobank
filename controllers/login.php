@@ -1,4 +1,6 @@
 <?php
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
 //#include 'logincookie.php';
 // Grab User submitted information
 $username = $_POST["username"];
@@ -50,12 +52,7 @@ if(mysql_num_rows($result) == 1)
     {
     echo "  <html>
     <script>
-<<<<<<< HEAD
-	    alert(\"Login Successful!.\");
-	    window.location.href = '../controllers/user-landing.php';
-=======
-    	window.location.href = '../view/user-landing.php';
->>>>>>> 32eea2c9d4801dd5a6f84edfa889e2c039ad44ce
+    	window.location.href = '../controllers/user-landing.php';
 	</script>
 </html>	";
       //  echo "Welcome User";
@@ -79,15 +76,8 @@ echo "<html>
     <script>
 	    alert(\"Login failed! Incorrect username or password.\");
 		window.history.back();
-<<<<<<< HEAD
 	</script>
 </html>";	
-	
-=======
-		</script>
-</html>	";
-		
->>>>>>> 32eea2c9d4801dd5a6f84edfa889e2c039ad44ce
 }	
   mysql_close($con);
   

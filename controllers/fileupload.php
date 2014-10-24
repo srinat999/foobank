@@ -1,8 +1,14 @@
 <?php
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
 include 'utils.php';
 include 'db.php';
 
 session_start();
+$userid=$_COOKIE['TUMsession'];
+echo $userid;
+echo $_SESSION['account'];
+echo "<html><script>alert(\"success\");</script></html>";
 $tan=$_POST["tan"];
 $tanInSession=$_SESSION['tan'];
 if ($tanInSession!=$tan) {
@@ -19,13 +25,13 @@ if (!$jsonobj) {
 	$_SESSION['error']=6;
 	header("Location: ../view/error.php");
 }
-$invalidaccounts=[];
-if (checkBalance(1, $jsonobj->sum)) {
+$invalidaccounts=array();
+if (checkBalance($userid, $jsonobj->sum)) {
 	foreach ($jsonobj->transactions as $transaction) {
 		if (!doesAccountExist($transaction->destacc) || $transaction->amount<=0) {
 			array_push($invalidaccounts, $transaction->destacc);
 		} else {
-			submitTrans(getAccountNumber(1), $transaction->destacc, $transaction->amount, 1);
+			submitTrans(getAccountNumber($userid), $transaction->destacc, $transaction->amount, $userid);
 		}
 	}
 	if (count($invalidaccounts)>0) {
@@ -40,6 +46,6 @@ if (checkBalance(1, $jsonobj->sum)) {
 } else {
 	mysql_close($con);
 	$_SESSION['error']=5;
-	header("Location: ../view/errors.php");
+	header("Location: ../view/error.php");
 }
 ?>
