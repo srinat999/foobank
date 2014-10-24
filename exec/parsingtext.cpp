@@ -51,7 +51,7 @@ int main(int argc, char * ARGV [])
     {
       if(!checktoken(token[0])){
 			cout << "Invalid file1";
-			return 1;
+			return 0;
 		}
       for (n = 1; n < MAX_TOKENS_PER_LINE; n++)
       {
