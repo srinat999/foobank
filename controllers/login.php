@@ -12,7 +12,7 @@ echo $select;
 
 
 // Connect to the database
-$con = mysql_connect("localhost","root","secret");
+$con = mysql_connect("localhost","root","samurai");
 // Make sure we connected succesfully
 if(! $con)
 {
@@ -37,6 +37,7 @@ $result = mysql_query("select * from users where username = '$username' AND pass
 
 
 if(mysql_num_rows($result) == 1)
+    
 {
     setcookie("TUMsession", $username, time() + 600, "/");
    if($select == 'employee')
@@ -44,7 +45,7 @@ if(mysql_num_rows($result) == 1)
   echo "  <html>
     <script>
 	    alert(\"Login Successful!.\");
-		window.location.href = '/ScTeam11/employeelanding.php';
+		window.location.href = '../controllers/employeelanding.php';
 	</script>
 </html>	";
    }
@@ -53,16 +54,18 @@ if(mysql_num_rows($result) == 1)
     echo "  <html>
     <script>
 	    alert(\"Login Successful!.\");
-    	window.location.href = '../view/user-landing.php';
+	    window.location.href = '../controllers/user-landing.php';
 	</script>
 </html>	";
-        echo "Welcome User";
+      //  echo "Welcome User";
     }
     elseif($select == 'admin')
     {
         echo "  <html>
     <script>
 	    alert(\"Login Successful!.\");
+        window.location.href = '../controllers/adminlanding.php';
+	    
 	</script>
 </html>	";
         echo "Welcome Admin";
@@ -70,14 +73,14 @@ if(mysql_num_rows($result) == 1)
  //header('Location: /ScTeam11/employeelanding.php');
 }
 else {
-?>
-<html>
+
+echo "<html>
     <script>
-	    alert("Login failed! Incorrect username or password.");
+	    alert(\"Login failed! Incorrect username or password.\");
 		window.history.back();
 	</script>
-</html>	
-<?php	
+</html>";	
+	
 }	
   mysql_close($con);
   

@@ -2,7 +2,7 @@
 include 'db.php';
 
 function doesAccountExist($account) {
-	$result = mysql_query("SELECT * from accounts where account_num=$account");
+	$result = mysql_query("SELECT * from accounts where account_num='$account'");
 	$row = mysql_fetch_array($result);
 	if (!$row) {
 		return false;
@@ -12,8 +12,10 @@ function doesAccountExist($account) {
 }
 
 function checkBalance($userid, $amount) {
-	$result = mysql_query("SELECT * from accounts where user_id=$userid");
+	$result = mysql_query("SELECT * from accounts where user_id='$userid'");
 	$row = mysql_fetch_array($result);
+    echo "Balance is $row[0]";
+    echo "Amount is $amount";
 	if ($row[0]<$amount) {
 		return false;
 	} else {

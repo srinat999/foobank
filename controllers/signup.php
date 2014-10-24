@@ -3,13 +3,22 @@
 // Grab User submitted information
 $uid = $_POST["username"];
 $pass = $_POST["password"];
-$comp = $_POST["company"];
+$email = $_POST["email"];
 $fullname = $_POST["fullname"];
-$address = $_POST["address"];
+$account = $_POST["account"];
 $repasswd=$_POST["repassword"];
+$select= $_POST["typeselect"];
+
+
+$t = time();
+$timestamp = date('Y-m-d H:i:s', $t);
+
+
+$hashpass = hash ('md5',$pass);
+
 
 // Connect to the database
-$con = mysql_connect("localhost","root","");
+$con = mysql_connect("localhost","root","samurai");
 // Make sure we connected succesfully
 if(! $con)
 {
@@ -17,38 +26,40 @@ if(! $con)
 }
 
 // Select the database to use
-mysql_select_db("sudhi",$con);
-//$result = mysql_query("SELECT * FROM login WHERE L_ID = '$uid';");
-//echo $result;
-//if ($result) 
-  //  {
-    //    echo "We are sorry Username already exists";
-    //}
-if($pass != $repasswd)
+mysql_select_db("foobank",$con);
+
+$result = mysql_query("select * from users where username = '$uid'");
+if(mysql_num_rows($result) > 0)
 {
-    
-    ?>
-<html>
+     echo "  <html>
     <script>
-	    alert("Please enter identical passwords.");
+	    alert(\"Username Already exist! Please try another user name\");
 		window.history.back();
 	</script>
-</html>	
-<?php	
-}
-else
-{
- if (!mysql_query("INSERT INTO LOGIN VALUES ( '$uid' , '$pass' , '$fullname', '$comp' , '$address') ;")) {
-  die('Error: ' . mysql_error($con));
+</html>	";
     
 }
+ 
 else
 {
-     header('Location: /Sudhi%20project/login.html');
-    //echo "sign up successful!! Please login now";
-}
 
-mysql_close($con);
+    if (!mysql_query("INSERT INTO users(username,fullname,password,email,role,registration_date,is_active) VALUES ( '$uid' , '$fullname' , '$hashpass', '$email' , '$select','$timestamp',0) ;")) {
+      die('Error: ' . mysql_error($con));
+
+    }
+    else
+    {
+
+      echo "  <html>
+        <script>
+            alert(\"Signup Successful! Please login now.\");
+            window.location.href = '/ScTeam11/login.html';
+        </script>
+    </html>	";
+        //header('Location: ScTeam11/login.html');
+    }
 }
+mysql_close($con);
+
 
 ?>

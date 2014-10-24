@@ -23,7 +23,7 @@
 				break;
 		}
 	?>
-	<a href="user-landing.php">Back</a>
+	<a href="../controllers/user-landing.php">Back</a>
 </section>
 </body>	
 

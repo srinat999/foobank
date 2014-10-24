@@ -9,7 +9,7 @@
         <div id="container">
             <div id="header"><h1>Sign Up</h1></div>
             <div id="main">
-                <form name="signup" action="signup.php" onsubmit="return validateForm();" method="post">
+                <form name="signup" action="../controllers/signup.php" onsubmit="return validateForm();" method="post">
                 <table cellpadding="0" cellspacing="0" border="0">
                     <tr>
                         <td class="form-input-name">UserID</td>
@@ -19,14 +19,11 @@
                         <td class="form-input-name">Full Name</td>
                         <td class="input"><input type="text" name="fullname" id="fullname" placeholder="Your full Name here..." autocomplete="off" required="required" /></td>
                     </tr>
-                    <tr>
-                        <td class="form-input-name">Account No</td>
-                        <td class="input"><input type="text" name="address" id="address" placeholder="Your bank Account..." autocomplete="off" required="required"/></td>
-                    </tr>
+                    
                     
                     <tr>
-                        <td class="form-input-name">Company</td>
-                        <td class="input"><input type="text" name="company" id="company" placeholder="Your Company here..." autocomplete="off" required="required" /></td>
+                        <td class="form-input-name">E-Mail ID</td>
+                        <td class="input"><input type="email" name="email" id="email" placeholder="Your email here..." autocomplete="off" required="required" /></td>
                     </tr>
                     <tr>
                         <td class="form-input-name">Password</td>
@@ -36,11 +33,22 @@
                         <td class="form-input-name">Retype Password</td>
                         <td class="input"><input type="password" name="repassword" id="repassword" placeholder="Password must contain 1 uppercase, lowercase and number" pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$" autocomplete="off"  required="required"/></td>
                     </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                        <select name ="typeselect" required>
+                            <option value="user" selected = "selected">Customer</option>
+                            <option value="employee">Employee</option>
+
+                        </select> 
+                            </td>
+            </tr>
                     
                     <tr>
                         <td class="form-input-name"><input type="button" value="Log In" onclick="location.href='login.html'"/> </td>
                         <td><input type="submit" value="Register" align= "left"/></td>
                     </tr>
+        
                 </table>
                 </form>
             </div>
