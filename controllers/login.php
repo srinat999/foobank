@@ -5,10 +5,10 @@ $username = $_POST["username"];
 $pass = $_POST["password"];
 $select= $_POST["typeselect"];
 
-$username= mysql_real_escape_string($username);
-$pass= mysql_real_escape_string($pass);
+//$username= mysql_real_escape_string($username);
+//$pass= mysql_real_escape_string($pass);
 $hashpass = hash("md5",$pass);
-echo $select;
+//echo $select;
 
 
 // Connect to the database
@@ -31,19 +31,16 @@ $stmt->execute();
 
 */
 
-$result = mysql_query("select * from users where username = '$username' AND password = '$hashpass' AND role = '$select';");
-
-
-
+$result = mysql_query("select user_id from users where username = '$username' AND password = '$hashpass' AND role = '$select';");
 
 if(mysql_num_rows($result) == 1)
 {
-    setcookie("TUMsession", $username, time() + 600, "/");
+	$t = mysql_fetch_array($result);
+    setcookie("TUMsession", $t[0], time() + 600, "/");
    if($select == 'employee')
    {
   echo "  <html>
     <script>
-	    alert(\"Login Successful!.\");
 		window.location.href = '/ScTeam11/employeelanding.php';
 	</script>
 </html>	";
@@ -52,7 +49,6 @@ if(mysql_num_rows($result) == 1)
     {
     echo "  <html>
     <script>
-	    alert(\"Login Successful!.\");
     	window.location.href = '../view/user-landing.php';
 	</script>
 </html>	";
@@ -70,14 +66,14 @@ if(mysql_num_rows($result) == 1)
  //header('Location: /ScTeam11/employeelanding.php');
 }
 else {
-?>
-<html>
+
+echo "<html>
     <script>
-	    alert("Login failed! Incorrect username or password.");
+	    alert(\"Login failed! Incorrect username or password.\");
 		window.history.back();
-	</script>
-</html>	
-<?php	
+		</script>
+</html>	";
+		
 }	
   mysql_close($con);
   

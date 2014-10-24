@@ -1,7 +1,9 @@
 <?php
-	include '../web/checkcookie.php';
 	include '../controllers/db.php';
-	$result = mysql_query("SELECT * FROM transactions WHERE user_id=1");
+	include '../web/checkcookie.php';
+	session_start();
+	$account = $_SESSION['account'];
+	$result = mysql_query("SELECT * FROM transactions WHERE ((source_account=$account OR destination_account=$account) AND is_approved=1) ORDER BY creation_date DESC");
 ?>
 
 <html>
@@ -14,12 +16,12 @@
 	<h3 align="center">Transfer history</h3>
 	<table align="center">
 		<tr>
-			<td>Account</td><td>Amount</td><td>Date</td>
+			<td>Source Account</td><td>Destination Account</td><td>Amount</td><td>Date</td>
 		</tr>
 		<?php
 			if($result) {
 				while($row = mysql_fetch_array($result)) {
-					echo "<tr><td>$row[2]</td><td>$row[3]</td><td>$row[4]</td></tr>";
+					echo "<tr><td>$row[1]</td><td>$row[2]</td><td>$row[3]</td><td>$row[4]</td></tr>";
 				}
 			}
 			mysql_close($con)

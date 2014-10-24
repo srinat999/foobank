@@ -18,8 +18,14 @@
 			case 3:
 				echo "<h3 align='center'>Invalid TAN number.</h3>";
 				break;
+			case 4:
+				echo "<h3 align='center'>Negative transaction amounts are not supported.</h3>";
+				break;
 			case 5:
 				echo "<h3 align='center'>You dont have sufficient balance for this transaction.</h3>";
+				break;
+			case 5:
+				echo "<h3 align='center'>You have uploaded an invalid file. Please try again.</h3>";
 				break;
 		}
 	?>

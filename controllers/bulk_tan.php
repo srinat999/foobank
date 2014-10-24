@@ -5,7 +5,7 @@ include 'utils.php';
 // Get this from session.
 session_start();
 $userid=1;
-//move_uploaded_file($_FILES["batchfile"]["tmp_name"], "/tmp/batchfile.txt");
+move_uploaded_file($_FILES["batchfile"]["tmp_name"], "/tmp/batchfile.txt");
 while(true) {
 	$tan_seq=rand(0,99);
 	$result=mysql_query("SELECT tan,expired from tan_numbers where seq_number=$tan_seq and user_id=$userid");
