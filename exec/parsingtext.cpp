@@ -50,14 +50,14 @@ int main(int argc, char * ARGV [])
     if (token[0]) // zero if line is blank
     {
       if(!checktoken(token[0])){
-			cout << "Invalid file1";
+			cout << "Invalid file";
 			return 0;
 		}
       for (n = 1; n < MAX_TOKENS_PER_LINE; n++)
       {
         token[n] = strtok(0, DELIMITER); // subsequent tokens
         if(!checktoken(token[n])){
-			cout << "Invalid file2";
+			cout << "Invalid file";
 			return 0;
 		}
 		dataflag = 1;
@@ -69,7 +69,6 @@ int main(int argc, char * ARGV [])
 		continue;
 	}
 	//Construct a Json string 
-	//ss << "{\"srcacc\":" << token[0] << ",\"destacc\":" << token[1] << ",\"amount\":" << token[2] << ",\"tan\":\"" << token[3] << "\"}, ";
 	ss << "{\"destacc\":" << token[0] << ",\"amount\":" << token[1] << "}, ";
 	sum = sum + atol(token[1]);	
   }
