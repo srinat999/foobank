@@ -18,12 +18,12 @@ const char*  DELIMITER = ",";
 
 int main(int argc, char * ARGV [])
 {
-  long int sum = 0;
+  double sum = 0;
   stringstream ss,file_path;
   ss << "{\"transactions\": [";
   string jsontemp,jsontrans,json,file;
   ifstream fin;
-  file_path << "/home/samurai/Desktop/⁄var⁄www/ScTeam11/" << ARGV[1];
+  file_path << ARGV[1];
   file = file_path.str();
   fin.open(file.c_str()); // open the file
   if (!fin.good()) 
@@ -48,19 +48,18 @@ int main(int argc, char * ARGV [])
       for (n = 1; n < MAX_TOKENS_PER_LINE; n++)
       {
         token[n] = strtok(0, DELIMITER); // subsequent tokens
+        if(!(atoi(token[n]))){
+			cout << "Error in input file";
+			return 0;
+		}
         if (!token[n]) break; // no more tokens
       }
     }
 
-    // process (print) the tokens
- /*   for (int i = 0; i < n; i++) // n = #of tokens
-      cout << "Token[" << i << "] = " << token[i] << endl;
-    cout << endl; */
-
 	//Construct a Json string 
 	//ss << "{\"srcacc\":" << token[0] << ",\"destacc\":" << token[1] << ",\"amount\":" << token[2] << ",\"tan\":\"" << token[3] << "\"}, ";
 	ss << "{\"destacc\":" << token[0] << ",\"amount\":" << token[1] << "}, ";
-	sum = sum + atol(token[1]);	
+	sum = sum + atof(token[1]);	
   }
  
   jsontemp = ss.str();

@@ -7,7 +7,7 @@
 </head>
 <body>
 	<section id="landingPage">
-	<h3 align="center">The transactions to the following accounts could not be carried out as these accounts do not exist.</h3>
+	<h3 align="center">The transactions to the following accounts could not be carried out.</h3>
 	<table align="center" style="width: 100%; border-spacing: 10px; padding: 20px; text-align: center">
 		<?php
 			session_start();

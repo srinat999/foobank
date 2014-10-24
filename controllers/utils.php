@@ -38,4 +38,5 @@ function getAccountNumber($userid) {
 	$row = mysql_fetch_array($result);
 	return $row[0];
 }
+}
 ?>

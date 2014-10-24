@@ -11,17 +11,21 @@ if ($tanInSession!=$tan) {
 	header("Location: ../view/error.php");
 }
 
-//echo shell_exec("../exec/parsing /tmp/batchfile.txt");
-$batchstring="{\"transactions\":[{\"account\":56998,\"amount\":1}, {\"account\":5678,\"amount\":1}],\"sum\":2}";
+$batchstring=shell_exec("../exec/parsing /tmp/batchfile.txt");
 $jsonobj=json_decode($batchstring);
 
+if (!$jsonobj) {
+	mysql_close($con);
+	$_SESSION['error']=6;
+	header("Location: ../view/error.php");
+}
 $invalidaccounts=[];
 if (checkBalance(1, $jsonobj->sum)) {
 	foreach ($jsonobj->transactions as $transaction) {
-		if (!doesAccountExist($transaction->account)) {
-			array_push($invalidaccounts, $transaction->account);
+		if (!doesAccountExist($transaction->destacc) || $transaction->amount<=0) {
+			array_push($invalidaccounts, $transaction->destacc);
 		} else {
-			submitTrans(getAccountNumber(1), $transaction->account, $transaction->amount, 1);
+			submitTrans(getAccountNumber(1), $transaction->destacc, $transaction->amount, 1);
 		}
 	}
 	if (count($invalidaccounts)>0) {

@@ -13,6 +13,10 @@ if ($row[2]==$account) {
 	mysql_close($con);
 	$_SESSION['error']=2;
 	header("Location: ../view/error.php");
+} elseif ($amount<=0) {
+	mysql_close($con);
+	$_SESSION['error']=4;
+	header("Location: ../view/error.php");
 } elseif (!doesAccountExist($account)) {
 	mysql_close($con);
 	$_SESSION['error']=1;
