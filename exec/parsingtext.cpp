@@ -1,6 +1,7 @@
 #include <iostream>
 using std::cout;
 using std::endl;
+using std::cin;
 
 #include <fstream>
 using std::ifstream;
@@ -15,13 +16,13 @@ using std::string;
 const int MAX_CHARS_PER_LINE = 512;
 const int MAX_TOKENS_PER_LINE = 2;
 const char*  DELIMITER = ",";
-
+bool checktoken(char* token);
 int main(int argc, char * ARGV [])
 {
-  double sum = 0;
-  stringstream ss,file_path;
+  long int sum = 0;
+  stringstream ss,file_path,errorstream;
   ss << "{\"transactions\": [";
-  string jsontemp,jsontrans,json,file;
+  string jsontemp,jsontrans,json,file,error;
   ifstream fin;
   file_path << ARGV[1];
   file = file_path.str();
@@ -43,23 +44,33 @@ int main(int argc, char * ARGV [])
     
     // parse the line
     token[0] = strtok(buf, DELIMITER); // first token
+    
     if (token[0]) // zero if line is blank
     {
+      if(!checktoken(token[0])){
+			cout << "Invalid file";
+			return 1;
+		}
       for (n = 1; n < MAX_TOKENS_PER_LINE; n++)
       {
         token[n] = strtok(0, DELIMITER); // subsequent tokens
-        if(!(atoi(token[n]))){
-			cout << "Error in input file";
+        if(!checktoken(token[n])){
+			cout << "Invalid file";
 			return 0;
 		}
         if (!token[n]) break; // no more tokens
       }
     }
-
+	else
+	{
+		cout << "Invalid File";
+		return 0;
+	}
+	
 	//Construct a Json string 
 	//ss << "{\"srcacc\":" << token[0] << ",\"destacc\":" << token[1] << ",\"amount\":" << token[2] << ",\"tan\":\"" << token[3] << "\"}, ";
 	ss << "{\"destacc\":" << token[0] << ",\"amount\":" << token[1] << "}, ";
-	sum = sum + atof(token[1]);	
+	sum = sum + atol(token[1]);	
   }
  
   jsontemp = ss.str();
@@ -69,5 +80,14 @@ int main(int argc, char * ARGV [])
   json = ss.str();
   cout << json;
   return 1;
+}
+bool checktoken(char* token){
+	int i=0;
+	while(token[i] != '\0'){
+		if(!((isdigit(token[i])) || token[i] == '.'))
+			return false;
+		i++;
+	}
+	return true;
 }
 
