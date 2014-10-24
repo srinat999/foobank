@@ -20,6 +20,7 @@ bool checktoken(char* token);
 int main(int argc, char * ARGV [])
 {
   long int sum = 0;
+  int dataflag = 0;
   stringstream ss,file_path,errorstream;
   ss << "{\"transactions\": [";
   string jsontemp,jsontrans,json,file,error;
@@ -33,6 +34,7 @@ int main(int argc, char * ARGV [])
   // read each line of the file
   while (!fin.eof())
   {
+	  
     // read an entire line into memory
     char buf[MAX_CHARS_PER_LINE];
     fin.getline(buf, MAX_CHARS_PER_LINE);
@@ -58,28 +60,36 @@ int main(int argc, char * ARGV [])
 			cout << "Invalid file";
 			return 0;
 		}
+		dataflag = 1;
         if (!token[n]) break; // no more tokens
       }
     }
 	else
 	{
-		cout << "Invalid File";
-		return 0;
-	}
+		continue;
+		//cout << "Invalid File";
+		//return 0;
+	} 
 	
 	//Construct a Json string 
 	//ss << "{\"srcacc\":" << token[0] << ",\"destacc\":" << token[1] << ",\"amount\":" << token[2] << ",\"tan\":\"" << token[3] << "\"}, ";
 	ss << "{\"destacc\":" << token[0] << ",\"amount\":" << token[1] << "}, ";
 	sum = sum + atol(token[1]);	
   }
- 
-  jsontemp = ss.str();
-  jsontrans = jsontemp.substr(0,jsontemp.length()-2) + "],";    //remove the last character ","
-  ss.str(string());  											//free the string stream
-  ss << jsontrans << "\"sum\":" << sum << "}";					//include sum of the transaction amount in the json string
-  json = ss.str();
-  cout << json;
+  
+  if(dataflag){
+		jsontemp = ss.str();
+		jsontrans = jsontemp.substr(0,jsontemp.length()-2) + "],";    	//remove the last character ","
+		ss.str(string());  												//free the string stream
+		ss << jsontrans << "\"sum\":" << sum << "}";					//include sum of the transaction amount in the json string
+		json = ss.str();
+		cout << json;
+	}
+	else
+		cout << "Invalid file";
+		
   return 1;
+  
 }
 bool checktoken(char* token){
 	int i=0;
