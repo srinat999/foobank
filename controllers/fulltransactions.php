@@ -8,7 +8,7 @@
 
 <html>
 <head>
-    <link rel="stylesheet" type="text/css" href="fulltransactions.css">
+    <link rel="stylesheet" type="text/css" href="../view/fulltransactions.css">
 </head>
    
 <body>

@@ -4,7 +4,7 @@ include 'utils.php';
 
 // Get this from session.
 session_start();
-$userid=1;
+$userid=$_COOKIE['TUMsession'];
 move_uploaded_file($_FILES["batchfile"]["tmp_name"], "/tmp/batchfile.txt");
 while(true) {
 	$tan_seq=rand(0,99);

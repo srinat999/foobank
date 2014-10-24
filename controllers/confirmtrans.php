@@ -15,7 +15,7 @@ $src_account=$_SESSION['src_account'];
 $dst_account=$_SESSION['dst_account'];
 $amount=$_SESSION['amount'];
 // Get this from session
-$userid=1;
+$userid=$_COOKIE['TUMsession'];
 mysql_query("UPDATE tan_numbers SET expired=1 WHERE tan='$tan'");
 submitTrans($src_account, $dst_account, $amount, $userid);
 mysql_close($con);

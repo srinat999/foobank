@@ -14,8 +14,6 @@ function doesAccountExist($account) {
 function checkBalance($userid, $amount) {
 	$result = mysql_query("SELECT * from accounts where user_id='$userid'");
 	$row = mysql_fetch_array($result);
-    echo "Balance is $row[0]";
-    echo "Amount is $amount";
 	if ($row[0]<$amount) {
 		return false;
 	} else {
@@ -37,6 +35,5 @@ function getAccountNumber($userid) {
 	$result = mysql_query("SELECT account_num from accounts where user_id=$userid");
 	$row = mysql_fetch_array($result);
 	return $row[0];
-}
 }
 ?>
