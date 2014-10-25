@@ -1,6 +1,7 @@
 <html>
 <head>
     <link rel="stylesheet" type="text/css" href="login.css">
+    <title>TUMonline Bank</title>
 </head>
    
 <body>

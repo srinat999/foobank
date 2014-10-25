@@ -44,7 +44,7 @@ if(mysql_num_rows($result) == 1)
    {
   echo "  <html>
     <script>
-		window.location.href = '/ScTeam11/employeelanding.php';
+		window.location.href = '../controllers/employeelanding.php';
 	</script>
 </html>	";
    }

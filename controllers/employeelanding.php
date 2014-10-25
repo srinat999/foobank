@@ -1,10 +1,23 @@
+<?php
+include 'db.php';
+include '../web/checkcookie.php';	
+$userid=$_COOKIE['TUMsession'];
+$result = mysql_query("SELECT * FROM users WHERE user_id =$userid AND role = 'employee'");
+if(mysql_num_rows($result) != 1)
+        header("Location: ../view/login.html");              
+?>
 <html>
 <head>
 <link rel="stylesheet" type="text/css" href="employeelanging.css">
+    <title>TUMonline Bank</title>
 </head>
 <body>
-<h4 align="center">Welcome user!</h4>
+<h2 align="center">Welcome user!</h2>
+    
 <section id="landingPage">
+    <form method="post" class="minimal" action="../controllers/deletecookie.php">
+        <button type="submit" class="btn-minimal" style="float: right;">Logout</button>
+    </form>
 Hello, today is <?php echo date('l, F jS, Y'); ?>.
 <table align="center" style="width: 100%; border-spacing: 10px; padding: 20px; text-align: center">
 <caption>Pending User Approvals</caption>
@@ -13,7 +26,7 @@ Hello, today is <?php echo date('l, F jS, Y'); ?>.
 </tr>
     
 <?php
-include 'db.php';
+
 $result = mysql_query("SELECT username,fullname,registration_date,email,user_id FROM users WHERE is_active = 0 and role = 'user'");
 $numrows = mysql_num_rows($result);
 //echo $numrows;
@@ -36,67 +49,78 @@ else
                 <td>"; 
      echo "<input type=\"radio\" name=\"$transactions[4]\"  value=\"Accept\" id=\"accept\" >Accept</input>
                 <input type=\"radio\" name=\"$transactions[4]\"  value=\"Decline\" id= \"decline\" >Decline</input></td>
-</tr> ";
+</tr> 
+";
     }
+    echo "<tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td><input type=\"submit\" class=\"btn-minimal\"value=\"Submit\" > </td>
+            </tr>"; 
 }
 
 ?>  
-    <tr>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td><input type="submit" value="Done" > </td>
-    </tr>
+   
  
 </table>
     
         </form>
     
-<br>    <br>    <br>    <br>    
-<a href="">More</a>
+<br>    <br>    <br>    
 </section>
     
 <!-- Transaction Approval  -->
 
-<section>    
+<section id="landingPage">    
     <table>
         <caption>Pending Transaction Approvals</caption>
         <tr>
             <th>Source Account</th><th>Destination Account</th><th>Amount</th><th>Date</th><th>Details</th>
         </tr>
         <?php
-$result = mysql_query("SELECT source_account,destination_account,amount,creation_date FROM transactions WHERE is_approved = 0 and amount >= 10000");
+$result = mysql_query("SELECT source_account,destination_account,amount,creation_date,transaction_id FROM transactions WHERE is_approved = 0 and amount >= 10000");
 $numrows = mysql_num_rows($result);
-echo $numrows;
-if($numrows==0)
-{
-    echo "</table>";
-    echo "<h4> No pending requests </h4>";
-}
-else
-{
-    echo "<form method=\"post\" class=\"minimal\" action=\"empprocess.php\">";
-            for($i=0; $i<$numrows; ++$i) {
-                 $transactions = mysql_fetch_array($result);
-                echo $transactions[4];
+//echo $numrows;
+            if($numrows==0)
+            {
+                echo "</table>";
+                echo "<h4> No pending requests </h4>";
+            }
+            else
+            {
+                echo "<form method=\"post\" class=\"minimal\" action=\"tranprocess.php\">";
+                        for($i=0; $i<$numrows; ++$i) {
+                             $transactions = mysql_fetch_array($result);
+
+                            echo "<tr>
+                            <td>$transactions[0]</td>
+                            <td>$transactions[1]</td>
+                            <td>$transactions[2]</td>
+                            <td>$transactions[3]</td>
+                            <td>"; 
+                 echo "<input type=\"radio\" name=\"$transactions[4]\"  value=\"Accept\" id=\"accept\" >Accept</input>
+                            <input type=\"radio\" name=\"$transactions[4]\"  value=\"Decline\" id= \"decline\" >Decline</input></td>
+            </tr> ";
+                           // echo $transactions[4];
+                }
                 echo "<tr>
-                <td>$transactions[0]</td>
-                <td>$transactions[1]</td>
-                <td>$transactions[2]</td>
-                <td>$transactions[3]</td>
-                <td>"; 
-     echo "<input type=\"radio\" name=\"$transactions[4]\"  value=\"Accept\" id=\"accept\" >Accept</input>
-                <input type=\"radio\" name=\"$transactions[4]\"  value=\"Decline\" id= \"decline\" >Decline</input></td>
-</tr> ";
-    }
-}
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td><input type=\"submit\" class=\"btn-minimal\" value=\"Submit\" > </td>
+            </tr>"; 
+            }
 
 mysql_close($con);
 ?>    
 
+                   
        
-    </table> 
+        </table> 
+    </form>
     
     </section>
     

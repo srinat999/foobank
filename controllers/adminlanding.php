@@ -1,7 +1,14 @@
 <?php
 require_once 'DbConnector.php';
-
+include '../web/checkcookie.php';
 $db = new DbConnector;
+$userid=$_COOKIE['TUMsession'];
+$query="SELECT * FROM users WHERE user_id =$userid AND role = 'admin';";
+$result = $db->execQuery($query);
+if(mysqli_num_rows($result) != 1)
+        header("Location: ../view/login.html");    
+
+
 $valuesaccept = array();
 $valuesreject = array();
 $t = time();
@@ -41,11 +48,15 @@ $db->execQuery($sql1);
 ?>
 <html>
     <head>
-        <link rel="stylesheet" type="text/css" href="adminlanding.css">
+        <link rel="stylesheet" type="text/css" href="employeelanging.css">
+        <title>TUMonline Bank</title>
     </head>
     <body>
         <h4 align="center">Welcome Admin!</h4>
             <section id="landingPage">
+                 <form method="post" class="minimal" action="../controllers/deletecookie.php">
+        <button type="submit" class="btn-minimal" style="float: right;">Logout</button>
+                 </form>
                 Hello, today is <?php echo date('l, F jS, Y'); ?>.
             <table>
                 <caption>Pending Employee Approvals</caption>
@@ -90,7 +101,7 @@ else
                 <td></td>
                 <td></td>
                 <td>
-                    <input type="submit" value="Done">
+                    <input type="submit" class="btn-minimal" value="Done">
                 </td>
             </tr>
                 </table>

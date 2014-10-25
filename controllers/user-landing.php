@@ -8,15 +8,20 @@
 <html>
 <head>
     <link rel="stylesheet" type="text/css" href="../view/login.css">
+    <title>TUMonline Bank</title>
 </head>
    
 <body>
 <h4 align="center">Welcome user!</h4>
 <section id="landingPage">
+    <form method="post" class="minimal" action="../controllers/deletecookie.php">
+        <button type="submit" class="btn-minimal" style="float: right;">Logout</button>
+    </form>
 	<h3 align="center">Account status</h3>
+    
 	<table align="center" style="width: 100%; border-spacing: 10px; padding: 20px; text-align: center">
 		<tr>
-			<td>Account</td><td>Amount</td>
+			<th>Account</th><th>Balance</th>
 		</tr>
 		<?php
 			session_start();
@@ -34,7 +39,7 @@
 	<h3 align="center">Transfer history</h3>
 	<table align="center" style="width: 100%; border-spacing: 10px; padding: 20px; text-align: center">
 		<tr>
-			<td>Source Account</td><td>Destination Account</td><td>Amount</td><td>Date</td>
+			<th>Source Account</th><th>Destination Account</th><th>Amount</th><th>Date</th>
 		</tr>
 		<?php
 			$result = mysql_query("SELECT * FROM transactions WHERE ((source_account=$account OR destination_account=$account) AND is_approved=1) ORDER BY creation_date DESC");

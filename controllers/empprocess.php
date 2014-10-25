@@ -59,22 +59,19 @@ foreach ($_POST as $key => $value){
         echo mysql_num_rows($accno);
         while(($retaccno = mysqli_fetch_array($accno)) && ( $em = mysqli_fetch_array($email)))
         {
-            echo $retaccno[0];
-            echo $em[0];
+            //echo $retaccno[0];
+            //echo $em[0];
             genTAN($key,$retaccno[0],$em[0]);
             
         }
         
-        
-        
-    
     }
               
 }
 
 
-//$db -> closeConnection();
-//header('Location: /ScTeam11/employeelanding.php');
+$db -> closeConnection();
+header('Location: employeelanding.php');
     
 
     
