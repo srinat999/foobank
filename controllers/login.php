@@ -1,6 +1,4 @@
 <?php
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
 //#include 'logincookie.php';
 // Grab User submitted information
 $username = $_POST["username"];
@@ -14,7 +12,7 @@ $hashpass = hash("md5",$pass);
 
 
 // Connect to the database
-$con = mysql_connect("localhost","root","samurai");
+$con = mysql_connect("localhost","root","secret");
 // Make sure we connected succesfully
 if(! $con)
 {

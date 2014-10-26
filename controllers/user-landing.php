@@ -39,14 +39,26 @@
 	<h3 align="center">Transfer history</h3>
 	<table align="center" style="width: 100%; border-spacing: 10px; padding: 20px; text-align: center">
 		<tr>
-			<th>Source Account</th><th>Destination Account</th><th>Amount</th><th>Date</th>
+			<th>Source Account</th><th>Destination Account</th><th>Amount</th><th>Date</th><th>Status</th>
 		</tr>
 		<?php
 			$result = mysql_query("SELECT * FROM transactions WHERE ((source_account=$account OR destination_account=$account) AND is_approved=1) ORDER BY creation_date DESC");
 			if($result) {
 				$i=0;
 				while(($row = mysql_fetch_array($result)) && ($i<3)) {
-					echo "<tr><td>$row[1]</td><td>$row[2]</td><td>$row[3]</td><td>$row[4]</td></tr>";
+					echo "<tr><td>$row[1]</td><td>$row[2]</td><td>$row[3]</td><td>$row[4]</td>";
+					switch ($row[5]){
+						case 0:
+							echo "<td>Pending Approval</td>";
+							break;
+						case 1:
+							echo "<td>Approved</td>";
+							break;				
+						case 2:
+							echo "<td>Rejected</td>";
+							break;
+					}
+					echo "</tr>";
 					$i++;
 				}
 			}

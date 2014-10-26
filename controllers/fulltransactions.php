@@ -16,12 +16,24 @@
 	<h3 align="center">Transfer history</h3>
 	<table align="center">
 		<tr>
-			<td>Source Account</td><td>Destination Account</td><td>Amount</td><td>Date</td>
+			<td>Source Account</td><td>Destination Account</td><td>Amount</td><td>Date</td><td>Status</td>
 		</tr>
 		<?php
 			if($result) {
 				while($row = mysql_fetch_array($result)) {
-					echo "<tr><td>$row[1]</td><td>$row[2]</td><td>$row[3]</td><td>$row[4]</td></tr>";
+					echo "<tr><td>$row[1]</td><td>$row[2]</td><td>$row[3]</td><td>$row[4]</td>";
+					switch ($row[5]){
+						case 0:
+							echo "<td>Pending Approval</td>";
+							break;
+						case 1:
+							echo "<td>Approved</td>";
+							break;
+						case 2:
+							echo "<td>Rejected</td>";
+							break;
+					}
+					echo "</tr>";
 				}
 			}
 			mysql_close($con)
