@@ -25,8 +25,11 @@
 			case 5:
 				echo "<h3 align='center'>You dont have sufficient balance for this transaction.</h3>";
 				break;
-			case 5:
+			case 6:
 				echo "<h3 align='center'>You have uploaded an invalid file. Please try again.</h3>";
+				break;
+			case 7:
+				echo "<h3 align='center'>No user with that username exists.</h3>";
 				break;
 		}
 	?>
