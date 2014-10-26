@@ -1,10 +1,12 @@
 <?php
 include 'db.php';
 include '../web/checkcookie.php';	
+include 'utils.php';
 $userid=$_COOKIE['TUMsession'];
-$result = mysql_query("SELECT * FROM users WHERE user_id =$userid AND role = 'employee'");
+checkEmployee($userid);
+/*$result = mysql_query("SELECT * FROM users WHERE user_id =$userid AND role = 'employee'");
 if(mysql_num_rows($result) != 1)
-        header("Location: ../view/login.html");              
+        header("Location: ../view/login.html"); */             
 ?>
 <html>
 <head>
@@ -123,6 +125,19 @@ mysql_close($con);
     </form>
     
     </section>
+    <section id="landingPage">
+		<h3>Search Customer</h3>
+		<form method="post" class="minimal"
+			action="../controllers/dotransaction.php">
+			<table cellpadding="0" cellspacing="0" border="0" width="90%">
+				<tr>
+					<td><label for="username"> Account Number:   <input type="text" name="account" id="accno" class="landingText" id="account" required="required" style="width: 400px;"/>
+					</label></td>
+					<td class="talign"><button type="submit" class="btn-minimal">Search</button></td>
+				</tr>
+			</table>	
+		</form>
+	</section>
     
     </body>
 </html>
