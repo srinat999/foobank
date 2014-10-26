@@ -12,7 +12,7 @@ $hashpass = hash("md5",$pass);
 
 
 // Connect to the database
-$con = mysql_connect("localhost","root","samurai");
+$con = mysql_connect("localhost","root","secret");
 // Make sure we connected succesfully
 if(! $con)
 {
