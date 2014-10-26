@@ -14,6 +14,7 @@
 <body>
 <section id="loginBox">
 	<h3 align="center">Transfer history</h3>
+	<a href="pdfgenerator.php">Download as PDF</a>
 	<table align="center">
 		<tr>
 			<td>Source Account</td><td>Destination Account</td><td>Amount</td><td>Date</td><td>Status</td>
