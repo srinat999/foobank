@@ -152,3 +152,11 @@ th {
     color: white;
     
 } 
+.file{
+	float:left;
+	margin:200px;
+}
+.text{
+	float:right;
+	width:400px;
+}

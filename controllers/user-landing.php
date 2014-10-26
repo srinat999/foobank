@@ -1,110 +1,118 @@
 <?php
-	include '../controllers/db.php';
-	include '../web/checkcookie.php';
-	// Change this to userid in the session.
-	$userid=$_COOKIE['TUMsession'];
+include '../controllers/db.php';
+include '../web/checkcookie.php';
+// Change this to userid in the session.
+$userid = $_COOKIE ['TUMsession'];
 ?>
 
 <html>
 <head>
-    <link rel="stylesheet" type="text/css" href="../view/login.css">
-    <title>TUMonline Bank</title>
+<link rel="stylesheet" type="text/css" href="../view/login.css">
+<title>TUMonline Bank</title>
 </head>
-   
+
 <body>
-<h4 align="center">Welcome user!</h4>
-<section id="landingPage">
-    <form method="post" class="minimal" action="../controllers/deletecookie.php">
-        <button type="submit" class="btn-minimal" style="float: right;">Logout</button>
-    </form>
-	<h3 align="center">Account status</h3>
-    
-	<table align="center" style="width: 100%; border-spacing: 10px; padding: 20px; text-align: center">
-		<tr>
-			<th>Account</th><th>Balance</th>
-		</tr>
+	<h4 align="center">Welcome user!</h4>
+	<section id="landingPage">
+		<form method="post" class="minimal"
+			action="../controllers/deletecookie.php">
+			<button type="submit" class="btn-minimal" style="float: right;">Logout</button>
+		</form>
+		<h3 align="center">Account status</h3>
+
+		<table align="center"
+			style="width: 100%; border-spacing: 10px; padding: 20px; text-align: center">
+			<tr>
+				<th>Account</th>
+				<th>Balance</th>
+			</tr>
 		<?php
-			session_start();
-			$result = mysql_query("SELECT balance,account_num FROM accounts WHERE user_id=$userid");
-			$row = mysql_fetch_array($result);
-			$account = $row[1];
-			$_SESSION['account']=$account;
-			if($result) {
-				echo "<tr><td>$row[1]</td><td>$row[0]</td></tr>";
-			}
+		session_start ();
+		$result = mysql_query ( "SELECT balance,account_num FROM accounts WHERE user_id=$userid" );
+		$row = mysql_fetch_array ( $result );
+		$account = $row [1];
+		$_SESSION ['account'] = $account;
+		if ($result) {
+			echo "<tr><td>$row[1]</td><td>$row[0]</td></tr>";
+		}
 		?>
 	</table>
-</section>
-<section id="landingPage">
-	<h3 align="center">Transfer history</h3>
-	<table align="center" style="width: 100%; border-spacing: 10px; padding: 20px; text-align: center">
-		<tr>
-			<th>Source Account</th><th>Destination Account</th><th>Amount</th><th>Date</th><th>Status</th>
-		</tr>
+	</section>
+	<section id="landingPage">
+		<h3 align="center">Transfer history</h3>
+		<table align="center"
+			style="width: 100%; border-spacing: 10px; padding: 20px; text-align: center">
+			<tr>
+				<th>Source Account</th>
+				<th>Destination Account</th>
+				<th>Amount</th>
+				<th>Date</th>
+				<th>Status</th>
+			</tr>
 		<?php
-			$result = mysql_query("SELECT * FROM transactions WHERE ((source_account=$account OR destination_account=$account) AND is_approved=1) ORDER BY creation_date DESC");
-			if($result) {
-				$i=0;
-				while(($row = mysql_fetch_array($result)) && ($i<3)) {
-					echo "<tr><td>$row[1]</td><td>$row[2]</td><td>$row[3]</td><td>$row[4]</td>";
-					switch ($row[5]){
-						case 0:
-							echo "<td>Pending Approval</td>";
-							break;
-						case 1:
-							echo "<td>Approved</td>";
-							break;				
-						case 2:
-							echo "<td>Rejected</td>";
-							break;
-					}
-					echo "</tr>";
-					$i++;
+		$result = mysql_query ( "SELECT * FROM transactions WHERE ((source_account=$account OR destination_account=$account) AND is_approved=1) ORDER BY creation_date DESC" );
+		if ($result) {
+			$i = 0;
+			while ( ($row = mysql_fetch_array ( $result )) && ($i < 3) ) {
+				echo "<tr><td>$row[1]</td><td>$row[2]</td><td>$row[3]</td><td>$row[4]</td>";
+				switch ($row [5]) {
+					case 0 :
+						echo "<td>Pending Approval</td>";
+						break;
+					case 1 :
+						echo "<td>Approved</td>";
+						break;
+					case 2 :
+						echo "<td>Rejected</td>";
+						break;
 				}
+				echo "</tr>";
+				$i ++;
 			}
-			mysql_close($con)
-		?>
+		}
+		mysql_close ( $con )?>
 	</table>
-	<a href="fulltransactions.php">More</a>
-</section>
-<section id="landingPage">
-	<h3>Single Transfer</h3>
-		<form method="post" class="minimal" action="../controllers/dotransaction.php">
+		<a href="fulltransactions.php">More</a>
+	</section>
+	<section id="landingPage">
+		<h3>Single Transfer</h3>
+		<form method="post" class="minimal"
+			action="../controllers/dotransaction.php">
 			<table cellpadding="0" cellspacing="0" border="0" width="90%">
 				<tr>
+					<td><label for="username"> Account No.:</br> <input type="text"
+							name="account" class="landingText" id="account"
+							required="required" />
+					</label></td>
+					<td><label for="password"> Amount:</br> <input type="text"
+							name="amount" class="landingText" id="amount" required="required" />
+					</label></td>
+				</tr>
+			</table>
+			<button type="submit" class="btn-minimal">Send</button>
+		</form>
+	</section>
+	<section id="landingPage">
+		<h3>Bulk Transfer</h3>
+		<form method="post" class="minimal"
+			action="../controllers/bulk_tan.php" enctype="multipart/form-data">
+			<table cellpadding="0" cellspacing="0" border="0" width="90%">
+				<tr>
+					<td><label for="username"> File:</br> <input type="file"
+							name="batchfile" class="landingText" id="batchfile" />
+					</label></td>
 					<td>
-						<label for="username">
-							Account No.:</br>
-							<input type="text" name="account" class="landingText" id="account" required="required" />
-						</label>
-					</td>
-					<td>
-						<label for="password">
-							Amount:</br>
-							<input type="text" name="amount" class="landingText" id="amount" required="required"/>
-						</label>
+						<p>
+							Please create a .txt file with your transactions with each line
+							in the below format:</br> "Destination Account1","Amount1"</br>
+							"Destination Account2","Amount2"</br>
+						</p>
 					</td>
 				</tr>
 			</table>
 			<button type="submit" class="btn-minimal">Send</button>
 		</form>
-</section>	
-<section id="landingPage">
-	<h3>Bulk Transfer</h3>
-	<form method="post" class="minimal" action="../controllers/bulk_tan.php" enctype="multipart/form-data">
-			<table cellpadding="0" cellspacing="0" border="0" width="90%">
-				<tr>
-					<td>
-						<label for="username">
-							File:</br>
-							<input type="file" name="batchfile" class="landingText" id="batchfile" />
-						</label>
-					</td>
-				</tr>
-			</table>
-			<button type="submit" class="btn-minimal">Send</button>
-		</form>
-</section>
-</body>	
+	</section>
+</body>
 
 </html>
