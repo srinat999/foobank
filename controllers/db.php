@@ -1,7 +1,7 @@
 <?php
 
 // Connect to the database
-$con = mysql_connect("localhost","root","secret");
+$con = mysql_connect("localhost","root","samurai");
 // Make sure we connected succesfully
 if(! $con)
 {

@@ -36,4 +36,10 @@ function getAccountNumber($userid) {
 	$row = mysql_fetch_array($result);
 	return $row[0];
 }
+function checkEmployee($userid)
+{
+    $result = mysql_query("SELECT * FROM users WHERE user_id =$userid AND role = 'employee'");
+if(mysql_num_rows($result) != 1)
+        header("Location: ../view/login.html");
+}
 ?>

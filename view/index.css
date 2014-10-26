@@ -1,8 +1,29 @@
 iFrame
 {
     width:580px; 
-    height:410px;
-    frameborder:0;
+    height:500px;
     float:right;
-}
+    border: none;
     
+    
+}
+body
+{
+    background-color:  rgb(230,230,250);
+    position:fixed; 
+    height: 100%; width: 100%; 
+    top:0;left:0;
+}
+p{
+    height: 100px;
+    width: 400px;
+} 
+    
+.login{
+    float: right;
+    width: 580px;
+}
+.content{
+    float: left;
+margin-right: 200px;
+}
