@@ -23,13 +23,13 @@ body {
 
 /*SECTION CONTAINER*/
 section#loginBox {
-	background-color: rgb(255,255,255);
+	background-color: rgb(230,230,250);
 	border: 1px solid rgba(0,0,0,.15);
 	border-radius: 4px;
 	box-shadow: 0 1px 0 rgba(255,255,255,0.2) inset, 0 0 4px rgba(0,0,0,0.2);
 	margin: 40px auto; /*aligns center*/
 	padding: 24px;
-	width: 500px;
+	width: 800px;
 }
 
 table {
@@ -37,11 +37,16 @@ table {
     border-spacing: 10px
 }
 
-th {
-    height: 50px;
-    padding: 10px;
+
+   th {
+    height: 20px;
+    padding: 5px;
+    background-color: gray;
+    color: white;
     
 } 
+    
+ 
 
 td  {
 	text-align:center;

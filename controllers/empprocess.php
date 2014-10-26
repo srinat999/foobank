@@ -44,7 +44,7 @@ $db->execQuery($sql);
 $db->execQuery($sql1);
 $db->execQuery($sqldelete);
 // Create a user account with balance 0 and send mail to user.
-echo "i am here";
+
 
 foreach ($_POST as $key => $value){
     if ($_POST[$key] == "Accept")
@@ -56,11 +56,9 @@ foreach ($_POST as $key => $value){
         $emailid = "Select email from users where user_id = '$key';";
         $accno = $db->execQuery($acc);
         $email = $db->execQuery($emailid);
-        echo mysql_num_rows($accno);
+     
         while(($retaccno = mysqli_fetch_array($accno)) && ( $em = mysqli_fetch_array($email)))
         {
-            //echo $retaccno[0];
-            //echo $em[0];
             genTAN($key,$retaccno[0],$em[0]);
             
         }
@@ -71,8 +69,5 @@ foreach ($_POST as $key => $value){
 
 
 $db -> closeConnection();
-header('Location: employeelanding.php');
-    
-
-    
+header('Location: employeelanding.php');        
 ?>

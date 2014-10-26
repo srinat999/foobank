@@ -46,7 +46,7 @@ if(!$db->execQuery($query)){
 
 //mysqli_close($Conn);
 $db -> closeConnection();
-echo $query;
+//echo $query;
 tan_mail($TanNo,$email,$accountNo);
 }
 //echo genTAN(2,12345,"vikkymanit@yahoo.co.in");

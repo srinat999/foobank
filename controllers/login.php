@@ -12,7 +12,7 @@ $hashpass = hash("md5",$pass);
 
 
 // Connect to the database
-$con = mysql_connect("localhost","root","secret");
+$con = mysql_connect("localhost","root","Shivguru096");
 // Make sure we connected succesfully
 if(! $con)
 {
@@ -31,7 +31,7 @@ $stmt->execute();
 
 */
 
-$result = mysql_query("select user_id from users where username = '$username' AND password = '$hashpass' AND role = '$select';");
+$result = mysql_query("select user_id,role from users where username = '$username' AND password = '$hashpass' AND is_active = 1");
 
 if(mysql_num_rows($result) == 1)
     
@@ -40,31 +40,65 @@ if(mysql_num_rows($result) == 1)
     setcookie("TUMsession", $t[0], time() + 600, "/");
    if($select == 'employee')
    {
-  echo "  <html>
-    <script>
-		window.location.href = '../controllers/employeelanding.php';
-	</script>
-</html>	";
+       if($t[1] == 'employee')
+       {
+            echo "  <html>  <script> window.top.location.href = '../controllers/employeelanding.php';
+	               </script>
+                   </html>	";
+       }
+       else
+       {
+           echo "<html>
+            <script>
+	       alert(\"Login failed! Please check the role.\");
+		      window.history.back();
+	       </script>
+        </html>";
+       }
    }
     elseif($select == 'user')
     {
+         if($t[1] == 'user')
+       {
     echo "  <html>
     <script>
-    	window.location.href = '../controllers/user-landing.php';
+    	window.top.location.href = '../controllers/user-landing.php';
 	</script>
 </html>	";
-      //  echo "Welcome User";
+        }
+         else
+       {
+           echo "<html>
+            <script>
+	       alert(\"Login failed! Please check the role.\");
+		      window.history.back();
+	       </script>
+        </html>";
+       }
+        
+    
     }
     elseif($select == 'admin')
     {
+         if($t[1] == 'admin')
+       {
         echo "  <html>
     <script>
-	    alert(\"Login Successful!.\");
-        window.location.href = '../controllers/adminlanding.php';
+        window.top.location.href = '../controllers/adminlanding.php';
 	    
 	</script>
 </html>	";
-        echo "Welcome Admin";
+        }
+         else
+       {
+           echo "<html>
+            <script>
+	       alert(\"Login failed! Please check the role.\");
+		      window.history.back();
+	       </script>
+        </html>";
+       }
+
     }
  //header('Location: /ScTeam11/employeelanding.php');
 }

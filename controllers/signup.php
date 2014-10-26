@@ -1,4 +1,5 @@
 <?php
+include 'genuserid.php';
 
 // Grab User submitted information
 $uid = $_POST["username"];
@@ -18,7 +19,7 @@ $hashpass = hash ('md5',$pass);
 
 
 // Connect to the database
-$con = mysql_connect("localhost","root","samurai");
+$con = mysql_connect("localhost","root","Shivguru096");
 // Make sure we connected succesfully
 if(! $con)
 {
@@ -42,8 +43,9 @@ if(mysql_num_rows($result) > 0)
  
 else
 {
-
-    if (!mysql_query("INSERT INTO users(username,fullname,password,email,role,registration_date,is_active) VALUES ( '$uid' , '$fullname' , '$hashpass', '$email' , '$select','$timestamp',0) ;")) {
+    
+    $user_id=genUserid();
+    if (!mysql_query("INSERT INTO users(username,fullname,password,email,role,registration_date,is_active,user_id) VALUES ( '$uid' , '$fullname' , '$hashpass', '$email' , '$select','$timestamp',0,$user_id) ;")) {
       die('Error: ' . mysql_error($con));
 
     }
@@ -53,7 +55,7 @@ else
       echo "  <html>
         <script>
             alert(\"Signup Successful! Please login now.\");
-            window.location.href = '/ScTeam11/login.html';
+            window.location.href = '../view/login.html';
         </script>
     </html>	";
         //header('Location: ScTeam11/login.html');
