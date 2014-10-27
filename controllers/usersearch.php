@@ -16,6 +16,11 @@ if (!$row) {
 <head>
 <link rel="stylesheet" type="text/css" href="../view/login.css">
 <title>TUMonline Bank</title>
+<script type='text/javascript'>
+function openTransactions() {
+    window.open("fulltransactions.php");
+}
+</script>
 </head>
 <body>
 <section id="landingPage">
@@ -40,7 +45,7 @@ if (!$row) {
 		$row = mysql_fetch_array ( $result );
 		$_SESSION ['account'] = $row[2];
 		if ($result) {
-			echo "<tr><td>$row[0]</td><td>$row[1]</td><td>$row[2]</td><td>$row[3]</td><td><a href=\"fulltransactions.php\">View</a></td></tr>";
+			echo "<tr><td>$row[0]</td><td>$row[1]</td><td>$row[2]</td><td>$row[3]</td><td><button type=\"submit\" class=\"btn-minimal\" onclick=\"openTransactions();\">View</button></td></tr>";
 		}
 		?>
 		</table>

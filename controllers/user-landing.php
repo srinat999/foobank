@@ -3,6 +3,11 @@ include '../controllers/db.php';
 include '../web/checkcookie.php';
 // Change this to userid in the session.
 $userid = $_COOKIE ['TUMsession'];
+if (isset($_COOKIE['TUMsession']))
+{
+unset($_COOKIE['TUMsession']);
+setcookie("TUMsession", $userid, time() + 600, "/");
+}
 ?>
 
 <html>
@@ -50,7 +55,7 @@ $userid = $_COOKIE ['TUMsession'];
 				<th>Status</th>
 			</tr>
 		<?php
-		$result = mysql_query ( "SELECT * FROM transactions WHERE ((source_account=$account OR destination_account=$account) AND is_approved=1) ORDER BY creation_date DESC" );
+		$result = mysql_query ( "SELECT * FROM transactions WHERE ((source_account=$account OR destination_account=$account)) ORDER BY creation_date DESC" );
 		if ($result) {
 			$i = 0;
 			while ( ($row = mysql_fetch_array ( $result )) && ($i < 3) ) {
@@ -74,6 +79,7 @@ $userid = $_COOKIE ['TUMsession'];
 	</table>
 		<a href="fulltransactions.php">More</a>
 	</section>
+    
 	<section id="landingPage">
 		<h3>Single Transfer</h3>
 		<form method="post" class="minimal"

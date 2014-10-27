@@ -3,8 +3,13 @@ include 'db.php';
 include 'utils.php';
 include '../web/checkcookie.php';
 // Change this to userid in the session.
-$userid=$_COOKIE['TUMsession'];
 
+$userid=$_COOKIE['TUMsession'];
+if (isset($_COOKIE['TUMsession']))
+{
+unset($_COOKIE['TUMsession']);
+setcookie("TUMsession", $userid, time() + 600, "/");
+}
 // Get this from session.
 session_start();
 $account=$_POST["account"];
@@ -52,14 +57,14 @@ mysql_close($con);
 <body>
 <h4 align="center">Welcome user!</h4>
 <section id="landingPage">
-	<h3>Single Transfer</h3>
+	<h3>TAN Entry</h3>
 		<form method="post" class="minimal" action="confirmtrans.php">
 			<table cellpadding="0" cellspacing="0" border="0" width="90%">
 				<tr>
 					<td>
 						<label for="username">
 							Enter your tan corresponding to the number <?php echo "$tan_seq"?>:</br>
-							<input type="text" name="tan" class="landingText" id="tan" required="required" />
+							<input type="text" name="tan" class="landingText" id="tan" required="required" pattern="^[a-zA-Z0-9]{15}$" />
 						</label>
 					</td>
 				</tr>

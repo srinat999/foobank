@@ -3,6 +3,11 @@ include 'db.php';
 include '../web/checkcookie.php';	
 include 'utils.php';
 $userid=$_COOKIE['TUMsession'];
+if (isset($_COOKIE['TUMsession']))
+{
+unset($_COOKIE['TUMsession']);
+setcookie("TUMsession", $userid, time() + 600, "/");
+}
 checkEmployee($userid);
 /*$result = mysql_query("SELECT * FROM users WHERE user_id =$userid AND role = 'employee'");
 if(mysql_num_rows($result) != 1)

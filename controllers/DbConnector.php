@@ -6,7 +6,7 @@
 class DbConnector
 {
 	private $userName = 'root';
-	private $pass = 'samurai';
+	private $pass = 'Shivguru096';
 	private $db = 'foobank';
 
 	private $conn;

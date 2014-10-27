@@ -7,16 +7,20 @@ iFrame
     
     
 }
+h1{
+    text-align:center;
+}
 body
 {
     background-color:  rgb(230,230,250);
     position:fixed; 
-    height: 100%; width: 100%; 
+
     top:0;left:0;
 }
 p{
-    height: 100px;
-    width: 400px;
+    height: auto;
+    width: 480px;
+    font-style: italic;
 } 
     
 .login{
@@ -25,5 +29,9 @@ p{
 }
 .content{
     float: left;
-margin-right: 200px;
+margin-right: 150px;
+}
+img{
+    width:400px; /* you can use % */
+    height:auto;
 }
