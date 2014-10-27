@@ -130,13 +130,14 @@ mysql_close($con);
     </form>
     
     </section>
+
     <section id="landingPage">
 		<h3>Search Customer</h3>
 		<form method="post" class="minimal"
 			action="../controllers/usersearch.php">
 			<table cellpadding="0" cellspacing="0" border="0" width="90%">
 				<tr>
-					<td><label for="username"> Account Number:   <input type="text" name="accno" id="accno" class="landingText" required="required" style="width: 400px;"/>
+					<td><label for="username"> Account Number:   <input type="text" name="accno" id="accno" class="landingText" required="required" style="width: 400px;" pattern="^[0-9]{2,10}$"/>
 					</label></td>
 					<td class="talign"><button type="submit" class="btn-minimal">Search</button></td>
 				</tr>
