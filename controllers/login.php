@@ -37,7 +37,7 @@ if(mysql_num_rows($result) == 1)
     
 {
 	$t = mysql_fetch_array($result);
-    setcookie("TUMsession", $t[0], time() + 600, "/");
+    setcookie("TUMsession", $t[0], time() + 60, "/");
    if($select == 'employee')
    {
        if($t[1] == 'employee')

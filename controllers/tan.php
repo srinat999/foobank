@@ -44,10 +44,9 @@ if(!$db->execQuery($query)){
 	exit("Error Occured");
 }
 
-//mysqli_close($Conn);
+
 $db -> closeConnection();
-//echo $query;
 tan_mail($TanNo,$email,$accountNo);
 }
-//echo genTAN(2,12345,"vikkymanit@yahoo.co.in");
+
 ?>

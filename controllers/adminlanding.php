@@ -3,6 +3,12 @@ require_once 'DbConnector.php';
 include '../web/checkcookie.php';
 $db = new DbConnector;
 $userid=$_COOKIE['TUMsession'];
+if (isset($_COOKIE['TUMsession']))
+{
+unset($_COOKIE['TUMsession']);
+setcookie("TUMsession", $userid, time() + 600, "/");
+}
+
 $query="SELECT * FROM users WHERE user_id =$userid AND role = 'admin';";
 $result = $db->execQuery($query);
 if(mysqli_num_rows($result) != 1)

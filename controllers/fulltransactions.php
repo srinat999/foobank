@@ -1,9 +1,15 @@
 <?php
 	include '../controllers/db.php';
 	include '../web/checkcookie.php';
+$userid=$_COOKIE['TUMsession'];    
+if (isset($_COOKIE['TUMsession']))
+{
+unset($_COOKIE['TUMsession']);
+setcookie("TUMsession", $userid, time() + 600, "/");
+}
 	session_start();
 	$account = $_SESSION['account'];
-	$result = mysql_query("SELECT * FROM transactions WHERE ((source_account=$account OR destination_account=$account) AND is_approved=1) ORDER BY creation_date DESC");
+	$result = mysql_query("SELECT * FROM transactions WHERE ((source_account=$account OR destination_account=$account)) ORDER BY creation_date DESC");
 ?>
 
 <html>
@@ -14,8 +20,14 @@
 <body>
 <section id="loginBox">
 	<h2 align="center">Transfer history</h2>
-	<a href="pdfgenerator.php">Download as PDF</a>
-	<table align="center">
+	
+    
+    <form method="post" class="minimal" action="../controllers/pdfgenerator.php">
+        <input type="hidden" name="PDF" value="<?php echo $account; ?>"> 
+        <button type="submit" class="btn-minimal" >Download PDF</button>
+    </form>
+	
+    <table align="center">
 		<tr>
 			<th>Source Account</th><th>Destination Account</th><th>Amount</th><th>Date</th><th>Status</th>
 		</tr>
