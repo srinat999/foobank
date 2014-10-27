@@ -5,7 +5,8 @@ checkEmployee($_COOKIE['TUMsession']);
 $account=$_POST['accno'];
 $result = mysql_query("SELECT * FROM accounts WHERE account_num=$account");
 session_start();
-if (!$result) {
+$rows=mysql_num_rows($result);
+if (!$row) {
 	mysql_close($con);
 	$_SESSION['error']=7;
 	header("Location: ../view/error.php");
