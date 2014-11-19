@@ -91,16 +91,25 @@ public class TokenUtil {
         return s.toString();
     }
 
-    /*public static void main(String[] args) {
+    /**
+     * Usage:
+     * 1. java -jar jar_name pin amount account code - gives true or false if the code is valid
+     * 2. java -jar jar_name pin amount account - gives the code that is generated
+     *
+     * @param args
+     */
+    public static void main(String[] args) {
         try {
-            if (doesCodeMatch("6591", "100", "12345", "68efa6f12e")) {
-                System.out.println("Yes it matches");
+            // System.out.println(args[0] + "@@" + args[1] + "@@" + args[2] + "@@" + args[3]);
+            if (args.length < 3) {
+                System.out.print("Invalid inputs");
+            } else if (args.length == 3) {
+                System.out.print(getCode(args[0], args[1], args[2]));
             } else {
-                System.out.println("No it doesnt");
+                System.out.print(isCodeValid(args[0], args[1], args[2], args[3]));
             }
-        } catch (NoSuchAlgorithmException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
-    }*/
-
+    }
 }
