@@ -1,7 +1,7 @@
 <?php
-require 'tan_mail.php';
-require('DbConnector.php');
-require('../lib/fpdf/fpdf_protection.php');
+require_once 'tan_mail.php';
+require_once('DbConnector.php');
+require_once('../lib/fpdf/fpdf_protection.php');
 //require ('../lib/fpdf/fpdf.php');
 function genTAN($user_id, $accountNo, $email)
 {

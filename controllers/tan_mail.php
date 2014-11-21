@@ -1,5 +1,5 @@
 <?php
-require('../lib/PHPMailer/PHPMailerAutoload.php');
+require_once('../lib/PHPMailer/PHPMailerAutoload.php');
 function tan_mail($email_address)
 {
     $mail = new PHPMailer(); // defaults to using php "mail()"
@@ -19,11 +19,11 @@ function tan_mail($email_address)
     $mail->MsgHTML($body);
     $mail->AddAttachment("TANList.pdf"); // attachment
     
-//    		 if(!$mail->Send()) {
-//    		   echo "Mailer Error: " . $mail->ErrorInfo;
-//    		 } else {
-//   		   echo "Message sent!";
-//    		 }
+    		 if(!$mail->Send()) {
+    		   echo "Mailer Error: " . $mail->ErrorInfo;
+    		 } else {
+   		   echo "Message sent!";
+    		 }
 
     unlink("TANList.pdf");
 }
