@@ -74,5 +74,5 @@ function genTANPDF($TanNo, $user_id)
     $pdf->Output($filename, 'F');
 }
 
-echo genTAN(2, 60018, "vikkymanit@yahoo.co.in");
+//echo genTAN(2, 60018, "vikkymanit@yahoo.co.in");
 ?>
