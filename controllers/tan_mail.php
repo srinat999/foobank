@@ -1,12 +1,14 @@
 <?php
 require_once('../lib/PHPMailer/PHPMailerAutoload.php');
-function tan_mail($email_address)
+function tan_mail($email_address,$accountNo)
 {
     $mail = new PHPMailer(); // defaults to using php "mail()"
     
-    $body = "<p>Dear Customer,<br><br> Please find your attached TAN list. The list is password protected. 
-		The password is combination first four characters of your full name and 
-		your userid. <br><br> Thank You for banking with us.</p>";
+    $body = "<p>Dear Customer,<br><br> Your account has now been activated. Your account number is '$accountNo'.<br><br>
+		Please find your attached TAN list. The list is password protected. 
+		The password is combination of first four characters of your full name in uppercase and first four characters of your
+		username in lowercase. For example, if your full name is John Watson and username is jwatson then your password will be JOHNjwat.
+		<br><br> Thank You for banking with us.</p>";
     
     $mail->SetFrom('securebankingcode@gmail.com', 'TUM International Bank');
     

@@ -47,17 +47,17 @@ function genTAN($user_id, $accountNo, $email)
     $db->closeConnection();
     
     genTANPDF($TanNo, $user_id);
-    tan_mail($email);
+    tan_mail($email,$accountNo);
 }
 
 function genTANPDF($TanNo, $user_id)
 {
     //Establish the database connection
     $db       = new DbConnector;
-    $result   = $db->execQuery("SELECT fullname, user_id FROM users WHERE user_id = '$user_id'");
+    $result   = $db->execQuery("SELECT fullname, username FROM users WHERE user_id = '$user_id'");
     $pdf      = new FPDF_Protection();
     $pass     = mysqli_fetch_assoc($result);
-    $password = substr((strtoupper($pass['fullname'])), 0, 4) . $pass['user_id'];
+    $password = substr((strtoupper($pass['fullname'])), 0, 4) . substr((strtolower($pass['username'])), 0, 4);
     $pdf->SetProtection(array(
         'copy',
         'print'
