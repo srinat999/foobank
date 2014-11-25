@@ -21,11 +21,13 @@ function tan_mail($email_address,$accountNo)
     $mail->MsgHTML($body);
     $mail->AddAttachment("TANList.pdf"); // attachment
     
+
 //    		 if(!$mail->Send()) {
 //    		   echo "Mailer Error: " . $mail->ErrorInfo;
 //    		 } else {
 //   		   echo "Message sent!";
 //    		 }
+
 
     unlink("TANList.pdf");
 }

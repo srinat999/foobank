@@ -29,11 +29,15 @@
 				echo "<h3 align='center'>You have uploaded an invalid file. Please try again.</h3>";
 				break;
 			case 7:
-				echo "<h3 align='center'>No user with that username exists.</h3>";
+				echo "<h3 align='center'>That accout number doesn't exist.</h3>";
 				break;
 		}
+		if ($_SESSION['error']==7) {
+			echo "<a href=\"../controllers/employeelanding.php\">Back</a>";
+		} else {
+			echo "<a href=\"../controllers/user-landing.php\">Back</a>";
+		}
 	?>
-	<a href="../controllers/user-landing.php">Back</a>
 </section>
 </body>	
 
