@@ -5,37 +5,41 @@ include '../web/checkcookie.php';
 // Change this to userid in the session.
 
 $userid=$_COOKIE['TUMsession'];
-if (isset($_COOKIE['TUMsession']))
-{
-unset($_COOKIE['TUMsession']);
-setcookie("TUMsession", $userid, time() + 600, "/");
+if (isset($_COOKIE['TUMsession'])) {
+	unset($_COOKIE['TUMsession']);
+	setcookie("TUMsession", $userid, time() + 600, "/");
 }
 // Get this from session.
 session_start();
 $account=$_POST["account"];
 $amount=$_POST["amount"];
-$result = mysql_query("SELECT * from accounts where user_id=$userid");
-$row = mysql_fetch_array($result);
-if ($row[2]==$account) {
-	mysql_close($con);
-	$_SESSION['error']=2;
-	header("Location: ../view/error.php");
-} elseif ($amount<=0) {
+$dst_userid=doesAccountExist($account);
+if ($amount<=0) {
 	mysql_close($con);
 	$_SESSION['error']=4;
 	header("Location: ../view/error.php");
-} elseif (!doesAccountExist($account)) {
+	die();
+} elseif (!$dst_userid) {
 	mysql_close($con);
 	$_SESSION['error']=1;
 	header("Location: ../view/error.php");
+	die();
+} elseif ($dst_userid == $userid) {
+	mysql_close($con);
+	$_SESSION['error']=2;
+	header("Location: ../view/error.php");
+	die();
 } elseif (!checkBalance($userid, $amount)) {
 	mysql_close($con);
 	$_SESSION['error']=5;
 	header("Location: ../view/error.php");
+	die();
 } else {
 	$_SESSION['dst_account']=$account;
 	$_SESSION['amount']=$amount;
-	$_SESSION['src_account']=$row[2];
+	$_SESSION['src_account']=getAccountNumber($userid);
+	$_SESSION['description']=$_POST["description"];;
+	$_SESSION['dst_userid']=$dst_userid;
 }
 while(true) {
 	$tan_seq=rand(0,99);
@@ -64,7 +68,7 @@ mysql_close($con);
 					<td>
 						<label for="username">
 							Enter your tan corresponding to the number <?php echo "$tan_seq"?>:</br>
-							<input type="text" name="tan" class="landingText" id="tan" required="required" pattern="^[a-zA-Z0-9]{15}$" />
+							<input type="text" name="tan" class="landingText" id="tan" required="required" pattern="^[a-zA-Z0-9]{15}$" maxlength="15"/>
 						</label>
 					</td>
 				</tr>

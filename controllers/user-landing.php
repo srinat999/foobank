@@ -1,6 +1,8 @@
 <?php
-include '../controllers/db.php';
+include 'db.php';
 include '../web/checkcookie.php';
+include 'utils.php';
+
 // Change this to userid in the session.
 $userid = $_COOKIE ['TUMsession'];
 if (isset($_COOKIE['TUMsession']))
@@ -48,19 +50,22 @@ setcookie("TUMsession", $userid, time() + 600, "/");
 		<table align="center"
 			style="width: 100%; border-spacing: 10px; padding: 20px; text-align: center">
 			<tr>
+				<th>Source User</th>
 				<th>Source Account</th>
+				<th>Destination User</th>
 				<th>Destination Account</th>
 				<th>Amount</th>
 				<th>Date</th>
+				<th>Description</th>
 				<th>Status</th>
 			</tr>
 		<?php
-		$result = mysql_query ( "SELECT * FROM transactions WHERE ((source_account=$account OR destination_account=$account)) ORDER BY creation_date DESC" );
+		$result = mysql_query (getTransacQuery($userid));
 		if ($result) {
 			$i = 0;
 			while ( ($row = mysql_fetch_array ( $result )) && ($i < 3) ) {
-				echo "<tr><td>$row[1]</td><td>$row[2]</td><td>$row[3]</td><td>$row[4]</td>";
-				switch ($row [5]) {
+				echo "<tr><td>$row[0]</td><td>$row[1]</td><td>$row[2]</td><td>$row[3]</td><td>$row[4]</td><td>$row[5]</td><td>$row[6]</td>";
+				switch ($row [7]) {
 					case 0 :
 						echo "<td>Pending Approval</td>";
 						break;
@@ -75,7 +80,8 @@ setcookie("TUMsession", $userid, time() + 600, "/");
 				$i ++;
 			}
 		}
-		mysql_close ( $con )?>
+		mysql_close ( $con )
+		?>
 	</table>
 		<a href="fulltransactions.php">More</a>
 	</section>
@@ -88,10 +94,13 @@ setcookie("TUMsession", $userid, time() + 600, "/");
 				<tr>
 					<td><label for="username"> Account No.:</br> <input type="text"
 							name="account" class="landingText" id="account"
-							required="required" />
+							required="required" maxlength="8"/>
 					</label></td>
 					<td><label for="password"> Amount:</br> <input type="text"
-							name="amount" class="landingText" id="amount" required="required" />
+							name="amount" class="landingText" id="amount" required="required" maxlength="8"/>
+					</label></td>
+					<td><label for="username"> Description:</br> <input type="text"
+							name="description" class="landingText" id="description" required="required" maxlength="30"/>
 					</label></td>
 				</tr>
 			</table>
