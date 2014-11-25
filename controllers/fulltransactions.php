@@ -1,6 +1,8 @@
 <?php
-	include '../controllers/db.php';
-	include '../web/checkcookie.php';
+include 'db.php';
+include 'utils.php';
+include '../web/checkcookie.php';
+
 $userid=$_COOKIE['TUMsession'];    
 if (isset($_COOKIE['TUMsession']))
 {
@@ -9,7 +11,7 @@ setcookie("TUMsession", $userid, time() + 600, "/");
 }
 	session_start();
 	$account = $_SESSION['account'];
-	$result = mysql_query("SELECT * FROM transactions WHERE ((source_account=$account OR destination_account=$account)) ORDER BY creation_date DESC");
+	$result = mysql_query(getTransacQuery($userid));
 ?>
 
 <html>
@@ -28,14 +30,21 @@ setcookie("TUMsession", $userid, time() + 600, "/");
     </form>
 	
     <table align="center">
-		<tr>
-			<th>Source Account</th><th>Destination Account</th><th>Amount</th><th>Date</th><th>Status</th>
-		</tr>
+		    <tr>
+				<th>Source User</th>
+				<th>Source Account</th>
+				<th>Destination User</th>
+				<th>Destination Account</th>
+				<th>Amount</th>
+				<th>Date</th>
+				<th>Description</th>
+				<th>Status</th>
+			</tr>
 		<?php
 			if($result) {
 				while($row = mysql_fetch_array($result)) {
-					echo "<tr><td>$row[1]</td><td>$row[2]</td><td>$row[3]</td><td>$row[4]</td>";
-					switch ($row[5]){
+					echo "<tr><td>$row[0]</td><td>$row[1]</td><td>$row[2]</td><td>$row[3]</td><td>$row[4]</td><td>$row[5]</td><td>$row[6]</td>";
+					switch ($row[7]){
 						case 0:
 							echo "<td>Pending Approval</td>";
 							break;
@@ -49,7 +58,8 @@ setcookie("TUMsession", $userid, time() + 600, "/");
 					echo "</tr>";
 				}
 			}
-			mysql_close($con)
+			mysql_close($con);
+			echo "<a href=\"../controllers/user-landing.php\">Back</a>";
 		?>
 	</table>
 </section>
