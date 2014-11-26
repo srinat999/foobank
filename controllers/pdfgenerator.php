@@ -2,7 +2,13 @@
 require ('../lib/fpdf/fpdf.php');
 require ('utils.php');
 require_once ('DbConnector.php');
-session_start();
+include 'sessionutils.php';
+
+if(!isSessionActive() || !enforceRBAC('customer')) {
+	header("Location: ../view/login.html");
+	die();
+}
+$userid=$_SESSION['uid'];
 $account=$_SESSION['account'];
 $db = new DbConnector ();
 $query = "SELECT * FROM transactions WHERE ((source_account=$account OR destination_account=$account) AND is_approved=1) ORDER BY creation_date DESC";

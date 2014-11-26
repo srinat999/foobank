@@ -1,7 +1,14 @@
 <?php
-
 require_once 'DbConnector.php';
 include 'tan.php';
+include 'sessionutils.php';
+
+if(!isSessionActive() || !enforceRBAC('employee')) {
+	header("Location: ../view/login.html");
+	die();
+}
+$userid=$_SESSION['uid'];
+
 $db = new DbConnector;
 $values = array();
 $values1= array();

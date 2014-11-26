@@ -1,10 +1,15 @@
 <?php
 include 'db.php';
 include 'utils.php';
-checkEmployee($_COOKIE['TUMsession']);
+include 'sessionutils.php';
+
+if(!isSessionActive() || !enforceRBAC('employee')) {
+ 	header("Location: ../view/login.html");
+ 	die();
+}
+$userid=$_SESSION['uid'];
 $account=$_POST['accno'];
 $result = mysql_query("SELECT * FROM accounts WHERE account_num=$account");
-session_start();
 $rows=mysql_num_rows($result);
 if ($rows==0) {
 	mysql_close($con);
