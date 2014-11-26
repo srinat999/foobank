@@ -1,10 +1,13 @@
 <?php
 include 'db.php';
 include 'utils.php';
+include 'sessionutils.php';
 
-// Get this from session.
-session_start();
-$userid=$_COOKIE['TUMsession'];
+if(!isSessionActive() || !enforceRBAC('customer')) {
+	header("Location: ../view/login.html");
+	die();
+}
+$userid=$_SESSION['uid'];
 move_uploaded_file($_FILES["batchfile"]["tmp_name"], "/tmp/batchfile.txt");
 while(true) {
 	$tan_seq=rand(0,99);

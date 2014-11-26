@@ -1,16 +1,13 @@
 <?php
 include 'db.php';
 include 'utils.php';
-include '../web/checkcookie.php';
-// Change this to userid in the session.
+include 'sessionutils.php';
 
-$userid=$_COOKIE['TUMsession'];
-if (isset($_COOKIE['TUMsession'])) {
-	unset($_COOKIE['TUMsession']);
-	setcookie("TUMsession", $userid, time() + 600, "/");
+if(!isSessionActive() || !enforceRBAC('customer')) {
+ 	header("Location: ../view/login.html");
+ 	die();
 }
-// Get this from session.
-session_start();
+$userid=$_SESSION['uid'];
 $account=$_POST["account"];
 $amount=$_POST["amount"];
 $dst_userid=doesAccountExist($account);

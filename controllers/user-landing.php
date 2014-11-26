@@ -1,15 +1,15 @@
 <?php
+//error_reporting(E_ALL);
+//ini_set('display_errors', 1);
 include 'db.php';
-include '../web/checkcookie.php';
 include 'utils.php';
+include 'sessionutils.php';
 
-// Change this to userid in the session.
-$userid = $_COOKIE ['TUMsession'];
-if (isset($_COOKIE['TUMsession']))
-{
-unset($_COOKIE['TUMsession']);
-setcookie("TUMsession", $userid, time() + 600, "/");
+if(!isSessionActive() || !enforceRBAC('customer')) {
+ 	header("Location: ../view/login.html");
+ 	die();
 }
+$userid=$_SESSION['uid'];
 ?>
 
 <html>
