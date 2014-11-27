@@ -1,6 +1,6 @@
 <?php
 include 'genuserid.php';
-
+include 'DBconnections.php';
 // Grab User submitted information
 $uid = $_POST["username"];
 $pass = $_POST["password"];
@@ -16,8 +16,31 @@ $timestamp = date('Y-m-d H:i:s', $t);
 
 
 $hashpass = hash ('md5',$pass);
-
-
+$db=new DBconnections();
+$result=$db->isUserExist($uid);
+if($result=='exist')
+{
+	echo "  <html>
+    <script>
+	    alert(\"Username Already exist! Please try another user name\");
+		window.history.back();
+	</script>
+</html>	";
+}
+elseif($result=='notexist')
+{
+	$user_id=genUserid();
+	if($db->insertUser( $uid, $fullname,$hashpass,$email,$select,$timestamp,$user_id)==1)
+	{
+		echo "  <html>
+        <script>
+            alert(\"Signup Successful! Please login now.\");
+            window.location.href = '../view/login.html';
+        </script>
+    </html>	";
+	}
+}
+/*
 // Connect to the database
 $con = mysql_connect("localhost","root","secret");
 // Make sure we connected succesfully
@@ -62,6 +85,6 @@ else
     }
 }
 mysql_close($con);
-
+*/
 
 ?>

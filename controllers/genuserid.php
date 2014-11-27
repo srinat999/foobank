@@ -17,5 +17,4 @@ function genUserid(){
 	$db->closeConnection();
 	return $userid;
 }
-echo genUserid();
 ?>

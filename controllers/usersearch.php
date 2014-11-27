@@ -1,13 +1,16 @@
 <?php
 include 'db.php';
 include 'utils.php';
+include 'DBconnections.php';
 checkEmployee($_COOKIE['TUMsession']);
 $account=$_POST['accno'];
-$result = mysql_query("SELECT * FROM accounts WHERE account_num=$account");
+$db=new DBconnections();
+$result=$db->isAccountExist($account);
+//$result = mysql_query("SELECT * FROM accounts WHERE account_num=$account");
 session_start();
-$rows=mysql_num_rows($result);
-if ($rows==0) {
-	mysql_close($con);
+//$rows=mysql_num_rows($result);
+if ($result==0) {
+	//mysql_close($con);
 	$_SESSION['error']=7;
 	header("Location: ../view/error.php");
 } 
@@ -46,7 +49,7 @@ function openTransactions() {
 		$_SESSION ['account'] = $row[2];
 		if ($result) {
 			echo "<tr><td>$row[0]</td><td>$row[1]</td><td>$row[2]</td><td>$row[3]</td><td><button type=\"submit\" class=\"btn-minimal\" onclick=\"openTransactions();\">View</button></td></tr>";
-		}
+		} 
 		?>
 		</table>
 		<a href="employeelanding.php">Back</a>

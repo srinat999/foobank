@@ -2,6 +2,7 @@
 
 class DBconnections {
  
+
     public function login( $id,$pass,$type )
     {
         $mysqli = new mysqli('localhost', 'root', 'Shivguru096', 'foobank');
@@ -65,6 +66,102 @@ class DBconnections {
         
 
     }
-}
+    
+    public function isUserExist( $id )
+    {
+    	$mysqli = new mysqli('localhost', 'root', 'Shivguru096', 'foobank');
+    	
+    	if(mysqli_connect_errno()) {
+    		echo "Connection Failed: " . mysqli_connect_errno();
+    		exit();
+    	}
+    	
+    	/* Create a prepared statement */
+    	if($stmt = $mysqli -> prepare("SELECT * FROM users WHERE username=?")) {
+    		 
+    		/* Bind parameters
+    		 s - string, b - blob, i - int, etc */
+    		$stmt -> bind_param("s", $id);
+    	
+    		/* Execute it */
+    		$stmt -> execute();
+    		/* store result */
+    		$stmt->store_result();
+    	
+    	if($stmt->num_rows==1)
+    		{
+    			return 'exist';
+    		}
+    		else
+    		{
+    			return 'notexist';
+    		}
+    		/* Close statement */
+    		$stmt -> close();
+    	}
+    }
+    
+    public function insertUser( $username, $fullname,$pass,$email,$select,$timestamp,$user_id)
+    {
+    	$mysqli = new mysqli('localhost', 'root', 'Shivguru096', 'foobank');
+    	 
+    	if(mysqli_connect_errno()) {
+    		echo "Connection Failed: " . mysqli_connect_errno();
+    		exit();
+    	}
+    	 
+    	/* Create a prepared statement */
+    	if($stmt = $mysqli -> prepare("INSERT INTO users(username,fullname,password,email,role,registration_date,user_id,is_active) VALUES (?,?,?,?,?,?,?,0) ;")) 
+       {
+    		 
+    		/* Bind parameters
+    		 s - string, b - blob, i - int, etc */
+    		$stmt -> bind_param("ssssssdi", $username, $fullname,$pass,$email,$select,$timestamp,$user_id);
+    		/* Execute it */
+    		if(!$stmt -> execute()){
+    			echo "Insert error: ";
+    			exit();
+    		}
+    		/* Close statement */
+    		$stmt -> close();
+    		return 1;
+    	}
+    }
+    
+    public function isAccountExist($accno)
+    {
+    	$mysqli = new mysqli('localhost', 'root', 'Shivguru096', 'foobank');
+    	
+    	if(mysqli_connect_errno()) {
+    		echo "Connection Failed: " . mysqli_connect_errno();
+    		exit();
+    	}
+    	/* Create a prepared statement */
+    	if($stmt = $mysqli -> prepare("SELECT * FROM accounts WHERE account_num=?")) 
+    	{
+    		 
+    		/* Bind parameters
+    		 s - string, b - blob, i - int, etc */
+    		$stmt -> bind_param("s", $accno);
+    	
+    		/* Execute it */
+    		$stmt -> execute();
+    		/* store result */
+    		$stmt->store_result();
+    		if($stmt->num_rows==1)
+    		{
+    			return 1;
+    		}
+    		else
+    		{
+    			return 0;
+    		}
+    		/* Close statement */
+    		$stmt -> close();
+    		
+    	}
+    }
+ }
+
 
 ?>
