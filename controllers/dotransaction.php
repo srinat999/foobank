@@ -85,7 +85,7 @@ mysql_close($con);
 								}
 							?>
 							<input type="text" name="tan" class="landingText" id="tan"
-							required="required" pattern="^[a-zA-Z0-9]{15}$" maxlength="15" />
+							required="required" maxlength="15" />
 					</label></td>
 				</tr>
 			</table>
