@@ -1,13 +1,13 @@
 <?php
 require_once 'DbConnector.php';
-include '../web/checkcookie.php';
-$db = new DbConnector;
-$userid=$_COOKIE['TUMsession'];
-if (isset($_COOKIE['TUMsession']))
-{
-unset($_COOKIE['TUMsession']);
-setcookie("TUMsession", $userid, time() + 600, "/");
+include 'sessionutils.php';
+
+if(!isSessionActive() || !enforceRBAC('admin')) {
+	header("Location: ../view/login.html");
+	die();
 }
+$userid=$_SESSION['uid'];
+$db = new DbConnector;
 
 $query="SELECT * FROM users WHERE user_id =$userid AND role = 'admin';";
 $result = $db->execQuery($query);

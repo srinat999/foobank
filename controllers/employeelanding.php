@@ -1,14 +1,14 @@
 <?php
-include 'db.php';
-include '../web/checkcookie.php';	
+include 'db.php';	
 include 'utils.php';
-$userid=$_COOKIE['TUMsession'];
-if (isset($_COOKIE['TUMsession']))
-{
-unset($_COOKIE['TUMsession']);
-setcookie("TUMsession", $userid, time() + 600, "/");
+include 'sessionutils.php';
+
+if(!isSessionActive() || !enforceRBAC('employee')) {
+	deleteSession();
+ 	header("Location: ../view/login.html");
+ 	die();
 }
-checkEmployee($userid);
+$userid=$_SESSION['uid'];
 /*$result = mysql_query("SELECT * FROM users WHERE user_id =$userid AND role = 'employee'");
 if(mysql_num_rows($result) != 1)
         header("Location: ../view/login.html"); */             

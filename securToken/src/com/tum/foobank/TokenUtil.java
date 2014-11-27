@@ -35,7 +35,6 @@ public class TokenUtil {
             System.out.print("Error IE: Something went wrong. Please try again.");
             throw new Exception("Internal Error while processing.");
         }
-        // System.out.println(s1 + " @@ " + s2);
         return s1.equals(code) || s2.equals(code);
     }
 

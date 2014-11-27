@@ -1,6 +1,7 @@
 <?php
 include 'db.php';
 include 'utils.php';
+<<<<<<< HEAD
 include 'DBconnections.php';
 checkEmployee($_COOKIE['TUMsession']);
 $account=$_POST['accno'];
@@ -11,6 +12,20 @@ session_start();
 //$rows=mysql_num_rows($result);
 if ($result==0) {
 	//mysql_close($con);
+=======
+include 'sessionutils.php';
+
+if(!isSessionActive() || !enforceRBAC('employee')) {
+ 	header("Location: ../view/login.html");
+ 	die();
+}
+$userid=$_SESSION['uid'];
+$account=$_POST['accno'];
+$result = mysql_query("SELECT * FROM accounts WHERE account_num=$account");
+$rows=mysql_num_rows($result);
+if ($rows==0) {
+	mysql_close($con);
+>>>>>>> bcbb90f7f867515fbbae8790385280a85027b625
 	$_SESSION['error']=7;
 	header("Location: ../view/error.php");
 } 

@@ -3,7 +3,7 @@ require_once 'tan_mail.php';
 require_once('DbConnector.php');
 require_once('../lib/fpdf/fpdf_protection.php');
 //require ('../lib/fpdf/fpdf.php');
-function genTAN($user_id, $accountNo, $email)
+function genTAN($user_id, $accountNo, $email, $clientPIN)
 {
     
     //Under the string $Characters write all the characters you want to be used to randomly generate the code.

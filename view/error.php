@@ -31,6 +31,9 @@
 			case 7:
 				echo "<h3 align='center'>That accout number doesn't exist.</h3>";
 				break;
+			case 8:
+				echo "<h3 align='center'>Internal Error occurred. Please try again.</h3>";
+				break;
 		}
 		if ($_SESSION['error']==7) {
 			echo "<a href=\"../controllers/employeelanding.php\">Back</a>";

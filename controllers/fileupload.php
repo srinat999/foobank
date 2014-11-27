@@ -3,12 +3,14 @@ error_reporting(E_ALL);
 ini_set('display_errors', 1);
 include 'utils.php';
 include 'db.php';
+include 'sessionutils.php';
 
-session_start();
-$userid=$_COOKIE['TUMsession'];
-echo $userid;
-echo $_SESSION['account'];
-echo "<html><script>alert(\"success\");</script></html>";
+if(!isSessionActive() || !enforceRBAC('customer')) {
+	header("Location: ../view/login.html");
+	die();
+}
+
+$userid=$_SESSION['uid'];
 $tan=$_POST["tan"];
 $tanInSession=$_SESSION['tan'];
 if ($tanInSession!=$tan) {
