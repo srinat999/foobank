@@ -18,7 +18,6 @@ class DBconnections {
        /* Bind parameters
          s - string, b - blob, i - int, etc */
       $stmt -> bind_param("ss", $id, $pass);
-	echo "here";
       /* Execute it */
       $stmt -> execute();
        /* store result */
@@ -34,9 +33,11 @@ class DBconnections {
         
       while($stmt->fetch())
       {
-          $_SESSION['uid']=$userid;
+          
            if($role==$type)
            {
+			   session_start();
+			   $_SESSION['uid']=$userid;
                if($type=='user')
                {
                return 'userlogin';

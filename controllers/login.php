@@ -1,6 +1,5 @@
 <?php
-include 'DBconnections.php';
-#include 'cookieutils.php';
+include 'DBconnections.php';//include 'cookieutils.php';
 include 'sessionutils.php';
 
 $db = new DBconnections ();
