@@ -1,19 +1,16 @@
 <?php
 include 'DBconnections.php';
-include 'cookieutils.php';
+#include 'cookieutils.php';
 include 'sessionutils.php';
 
 $db = new DBconnections ();
 $username = $_POST ["username"];
 $pass = $_POST ["password"];
 $select = $_POST ["typeselect"];
-
-// $username= mysql_real_escape_string($username);
-// $pass= mysql_real_escape_string($pass);
 $hashpass = hash ( "md5", $pass );
-// echo $select;
-$result = $db->login ( $username, $hashpass, $select );
-// echo $result;
+//echo $select;
+$result = $db->login( $username, $hashpass, $select );
+echo $result;
 if ($result == 'fail') {
 	deleteSession();
 	echo "<html>

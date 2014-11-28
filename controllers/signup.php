@@ -1,11 +1,8 @@
 <?php
 include 'genuserid.php';
-<<<<<<< HEAD
 include 'DBconnections.php';
-=======
-include 'db.php';
 
->>>>>>> bcbb90f7f867515fbbae8790385280a85027b625
+
 // Grab User submitted information
 $uid = $_POST ["username"];
 $pass = $_POST ["password"];
@@ -21,7 +18,7 @@ $timestamp = date ( 'Y-m-d H:i:s', $t );
 
 $hashpass = hash ( 'md5', $pass );
 
-<<<<<<< HEAD
+
 
 $hashpass = hash ('md5',$pass);
 $db=new DBconnections();
@@ -87,8 +84,6 @@ else {
 <<<<<<< HEAD
 mysql_close($con);
 */
-=======
-mysql_close ( $con );
->>>>>>> bcbb90f7f867515fbbae8790385280a85027b625
+
 
 ?>
