@@ -11,7 +11,7 @@ if(!isSessionActive() || !enforceRBAC('customer')) {
 }
 
 $userid=$_SESSION['uid'];
-echo $userid;
+//echo $userid;
 ?>
 
 <html>

@@ -1,20 +1,9 @@
 <?php
 include 'db.php';
 include 'utils.php';
-<<<<<<< HEAD
-include 'DBconnections.php';
-checkEmployee($_COOKIE['TUMsession']);
-$account=$_POST['accno'];
-$db=new DBconnections();
-$result=$db->isAccountExist($account);
-//$result = mysql_query("SELECT * FROM accounts WHERE account_num=$account");
-session_start();
-//$rows=mysql_num_rows($result);
-if ($result==0) {
-	//mysql_close($con);
-=======
 include 'sessionutils.php';
-
+include 'validations.php'; 
+$v=new validations();
 if(!isSessionActive() || !enforceRBAC('employee')) {
  	header("Location: ../view/login.html");
  	die();
@@ -25,9 +14,19 @@ $result = mysql_query("SELECT * FROM accounts WHERE account_num=$account");
 $rows=mysql_num_rows($result);
 if ($rows==0) {
 	mysql_close($con);
->>>>>>> bcbb90f7f867515fbbae8790385280a85027b625
 	$_SESSION['error']=7;
 	header("Location: ../view/error.php");
+}
+//validate entered username
+if($v->accnoMatch($account)!=1)
+{
+	echo "<html>
+    <script>
+	    alert(\"Account number should contain only numbers!\");
+		window.history.back();
+	</script>
+</html>";
+die();
 } 
 ?>
 <html>

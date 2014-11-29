@@ -14,7 +14,7 @@ class validations{
 	}
 	public function passwordMatch($password)
 	{
-		if(preg_match("/^(?=.*[0-9])(?=.*[a-z])(\S+)$/i",$user)) {
+		if(preg_match("/^((?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,20})$/",$password)) {
 			return 1;
 		}
 		else
@@ -35,8 +35,58 @@ class validations{
 			return 0; 
 		}
 	}
-	
-		
+	public function fullnameMatch($name)
+	{
+		if(preg_match("/^[a-zA-Z0-9[:space:]]{8,20}$/",$name)) {
+			return 1;
+		}
+		else 
+		{
+			return 0;;
+		}
+	}
+	public function tanMatch($tan)
+	{
+		if((preg_match("/^[a-zA-Z0-9]{15}$/",$tan))||(preg_match("/^[a-zA-Z0-9]{10}$/",$tan))) {
+			return 1;
+		}
+		else 
+		{
+			return 0;;
+		}
+	}
+	public function accnoMatch($accno)
+	{
+		if(preg_match("/^[0-9]+$/",$accno)) {
+			return 1;
+		}
+		else 
+		{
+			return 0;;
+		}
+	}
+	public function amountMatch($amount)
+	{
+		if(preg_match("/^\d+(?:\.\d+)?$/", $amount))
+		{
+			return 1;
+		}
+		else 
+		{
+			return 0;;
+		}
+	}
+	public function descriptionMatch($description)
+	{
+		if(preg_match("/^[a-zA-Z0-9[:space:]]{3,30}$/", $description))
+		{
+			return 1;
+		}
+		else 
+		{
+			return 0;;
+		}
+	}	
 }
 
 ?>

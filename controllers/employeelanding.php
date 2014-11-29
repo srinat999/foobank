@@ -19,7 +19,7 @@ if(mysql_num_rows($result) != 1)
     <title>TUMonline Bank</title>
 </head>
 <body>
-<h2 align="center">Welcome user!</h2>
+<h2 align="center">Welcome Staff Member!</h2>
     
 <section id="landingPage">
     <form method="post" class="minimal" action="../controllers/deletecookie.php">

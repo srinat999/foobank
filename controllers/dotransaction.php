@@ -2,7 +2,8 @@
 include 'db.php';
 include 'utils.php';
 include 'sessionutils.php';
-
+include 'validations.php'; 
+$v=new validations();
 if(!isSessionActive() || !enforceRBAC('customer')) {
  	header("Location: ../view/login.html");
  	die();
@@ -10,6 +11,41 @@ if(!isSessionActive() || !enforceRBAC('customer')) {
 $userid=$_SESSION['uid'];
 $account=$_POST["account"];
 $amount=$_POST["amount"];
+$description=$_POST["description"];
+//validate entered account number
+if($v->accnoMatch($account)!=1)
+{
+	echo "<html>
+    <script>
+	    alert(\"Account should only contain numbers!\");
+		window.history.back();
+	</script>
+</html>";
+die();
+}
+//validate entered amount
+if($v->amountMatch($amount)!=1)
+{
+	echo "<html>
+    <script>
+	    alert(\"Please enter valid amount!\");
+		window.history.back();
+	</script>
+</html>";
+die();
+}
+//validate description
+if($v->descriptionMatch($description)!=1)
+{
+	echo "<html>
+    <script>
+	    alert(\"Please enter proper Description\");
+		window.history.back();
+	</script>
+</html>";
+die();
+}
+
 $dst_userid=doesAccountExist($account);
 if ($amount<=0) {
 	mysql_close($con);
@@ -35,7 +71,7 @@ if ($amount<=0) {
 	$_SESSION['dst_account']=$account;
 	$_SESSION['amount']=$amount;
 	$_SESSION['src_account']=getAccountNumber($userid);
-	$_SESSION['description']=$_POST["description"];;
+	$_SESSION['description']=$description;
 	$_SESSION['dst_userid']=$dst_userid;
 }
 

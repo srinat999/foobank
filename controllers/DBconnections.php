@@ -102,7 +102,7 @@ class DBconnections {
     	}
     }
     
-    public function insertUser( $username, $fullname,$pass,$email,$select,$timestamp,$user_id)
+    public function insertUser( $username, $fullname,$pass,$email,$select,$timestamp,$user_id,$tranauth)
     {
     	$mysqli = new mysqli('localhost', 'root', 'Shivguru096', 'foobank');
     	 
@@ -112,13 +112,14 @@ class DBconnections {
     	}
     	 
     	/* Create a prepared statement */
-    	if($stmt = $mysqli -> prepare("INSERT INTO users(username,fullname,password,email,role,registration_date,user_id,is_active) VALUES (?,?,?,?,?,?,?,0) ;")) 
+    	if($stmt = $mysqli -> prepare("INSERT INTO users(username,fullname,password,email,role,tranauth,registration_date,user_id,is_active) VALUES (?,?,?,?,?,?,?,?,0) ;")) 
        {
     		 
     		/* Bind parameters
     		 s - string, b - blob, i - int, etc */
-    		$stmt -> bind_param("ssssssdi", $username, $fullname,$pass,$email,$select,$timestamp,$user_id);
+    		$stmt -> bind_param("sssssssi", $username, $fullname,$pass,$email,$select,$tranauth,$timestamp,$user_id);
     		/* Execute it */
+    		
     		if(!$stmt -> execute()){
     			echo "Insert error: ";
     			exit();
