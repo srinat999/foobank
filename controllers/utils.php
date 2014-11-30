@@ -31,13 +31,21 @@ function submitTrans($src_account, $dst_account, $amount, $userid, $dst_userid, 
 	}
 }
 
-function getAccountNumber($accountnum) {
+// Get the transaction authentication mode.
+function getTransAuthMode($userid) {
+	$query = "SELECT tranauth,clientPIN FROM users WHERE user_id='$userid'";
+	$result = mysql_query($query);
+	$row = mysql_fetch_array($result);
+	return $row;
+}
+
+function getUserId($accountnum) {
 	$result = mysql_query("SELECT user_id from accounts where account_num=$accountnum");
 	$row = mysql_fetch_array($result);
 	return $row[0];
 }
 
-function getUserId($userid) {
+function getAccountNumber($userid) {
 	$result = mysql_query("SELECT account_num from accounts where user_id=$userid");
 	$row = mysql_fetch_array($result);
 	return $row[0];
