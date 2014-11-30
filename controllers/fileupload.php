@@ -13,10 +13,21 @@ if(!isSessionActive() || !enforceRBAC('customer')) {
 $userid=$_SESSION['uid'];
 $tan=$_POST["tan"];
 $tanInSession=$_SESSION['tan'];
-if ($tanInSession!=$tan) {
+if (($_SESSION['tranauth']=='email') && ($tanInSession!=$tan)) {
 	mysql_close($con);
 	$_SESSION['error']=3;
 	header("Location: ../view/error.php");
+	die();
+} elseif ($_SESSION['tranauth']=='scs') {
+	$result = shell_exec("java -jar ../securToken/securToken.jar $clientPIN $amount $dst_account $tan");
+	if ($result=='false') {
+		mysql_close($con);
+		$_SESSION['error']=3;
+		header("Location: ../view/error.php");
+		die();
+	}
+} else {
+	
 }
 
 $batchstring=shell_exec("../exec/parsing /tmp/batchfile.txt");
