@@ -30,7 +30,7 @@ $userid=$_SESSION['uid'];
 		<h3 align="center">Account status</h3>
 		<?php 
 			if(checkSCS($userid)==1)
-				echo "<a href=\"TUMbankSCS.jar\">Download the SCS software</a>";
+						echo "<a href=\"TUMbankSCS.jar\">Download the SCS software</a>";
 		?>
 		<table align="center"
 			style="width: 100%; border-spacing: 10px; padding: 20px; text-align: center">
