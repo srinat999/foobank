@@ -39,13 +39,13 @@ function getTransAuthMode($userid) {
 	return $row;
 }
 
-function getAccountNumber($accountnum) {
+function getUserId($accountnum) {
 	$result = mysql_query("SELECT user_id from accounts where account_num=$accountnum");
 	$row = mysql_fetch_array($result);
 	return $row[0];
 }
 
-function getUserId($userid) {
+function getAccountNumber($userid) {
 	$result = mysql_query("SELECT account_num from accounts where user_id=$userid");
 	$row = mysql_fetch_array($result);
 	return $row[0];
