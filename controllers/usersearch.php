@@ -2,7 +2,8 @@
 include 'db.php';
 include 'utils.php';
 include 'sessionutils.php';
-
+include 'validations.php'; 
+$v=new validations();
 if(!isSessionActive() || !enforceRBAC('employee')) {
  	header("Location: ../view/login.html");
  	die();
@@ -15,6 +16,17 @@ if ($rows==0) {
 	mysql_close($con);
 	$_SESSION['error']=7;
 	header("Location: ../view/error.php");
+}
+//validate entered username
+if($v->accnoMatch($account)!=1)
+{
+	echo "<html>
+    <script>
+	    alert(\"Account number should contain only numbers!\");
+		window.history.back();
+	</script>
+</html>";
+die();
 } 
 ?>
 <html>
@@ -51,7 +63,7 @@ function openTransactions() {
 		$_SESSION ['account'] = $row[2];
 		if ($result) {
 			echo "<tr><td>$row[0]</td><td>$row[1]</td><td>$row[2]</td><td>$row[3]</td><td><button type=\"submit\" class=\"btn-minimal\" onclick=\"openTransactions();\">View</button></td></tr>";
-		}
+		} 
 		?>
 		</table>
 		<a href="employeelanding.php">Back</a>

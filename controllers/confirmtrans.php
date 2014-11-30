@@ -2,7 +2,8 @@
 include 'db.php';
 include 'utils.php';
 include 'sessionutils.php';
-
+include 'validations.php'; 
+$v=new validations();
 if(!isSessionActive() || !enforceRBAC('customer')) {
 	header("Location: ../view/login.html");
 	die();
@@ -15,6 +16,17 @@ $dst_userid=$_SESSION['dst_userid'];
 $description=$_SESSION['description'];
 
 $tan=$_POST["tan"];
+//validate TAN Numbers
+if($v->tanMatch($tan)!=1)
+{
+	echo "<html>
+    <script>
+	    alert(\"TAN should be of length 10 or 15 and it should contain only alphanumeric characters\");
+		window.history.back();
+	</script>
+</html>";
+die();
+}
 $tanInSession=$_SESSION['tan'];
 $clientPIN = $_SESSION['clientPIN'];
 if (($_SESSION['tranauth']=='email') && ($tanInSession!=$tan)) {

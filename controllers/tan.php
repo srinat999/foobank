@@ -45,9 +45,13 @@ function genTAN($user_id, $accountNo, $email, $clientPIN)
         exit("Error Occured");
     }
     $db->closeConnection();
-    
-    genTANPDF($TanNo, $user_id);
-    tan_mail($email,$accountNo);
+    if ($clientPIN == -1){
+		genTANPDF($TanNo, $user_id);
+		tan_mail($email,$accountNo);
+	}
+	else {
+		tan_mailpin($email,$accountNo,$clientPIN);
+	}
 }
 
 function genTANPDF($TanNo, $user_id)

@@ -20,9 +20,9 @@ function tan_mail($email_address,$accountNo)
     $mail->AltBody = "To view the message, please use an HTML compatible email viewer!"; // optional, comment out and test		
     $mail->MsgHTML($body);
     $mail->AddAttachment("TANList.pdf"); // attachment
-    
+    $check = $mail->Send();
 
-//    		 if(!$mail->Send()) {
+//    		 if(!$check) {
 //    		   echo "Mailer Error: " . $mail->ErrorInfo;
 //    		 } else {
 //   		   echo "Message sent!";
@@ -32,5 +32,29 @@ function tan_mail($email_address,$accountNo)
     unlink("TANList.pdf");
 }
 //echo tan_mail("vikky_manit@yahoo.co.in");
+
+function tan_mailpin($email_address,$accountNo,$clientPIN){
+	$mail = new PHPMailer(); // defaults to using php "mail()"
+    
+    $body = "<p>Dear Customer,<br><br> Your account has now been activated. Your account number is '$accountNo'.<br><br>
+		Your PIN is '$clientPIN'. Please use this PIN to generate codes for performing transactions. Please do not disclose this PIN to anyone. 
+		<br><br> Thank You for banking with us.</p>";
+    
+    $mail->SetFrom('securebankingcode@gmail.com', 'TUM International Bank');   
+    $address = $email_address;
+    $mail->AddAddress($address);
+    $mail->Subject = "PIN from TUM International Bank";
+    $mail->AltBody = "To view the message, please use an HTML compatible email viewer!"; // optional, comment out and test		
+    $mail->MsgHTML($body);
+    $check = $mail->Send();
+
+//    		 if(!$check) {
+//    		   echo "Mailer Error: " . $mail->ErrorInfo;
+//    		 } else {
+//   		   echo "Message sent!";
+//    		 }
+
+}
+
 ?>
 

@@ -1,19 +1,48 @@
 <?php
-include 'DBconnections.php';
-include 'cookieutils.php';
+include 'DBconnections.php';//include 'cookieutils.php';
 include 'sessionutils.php';
-
+include 'validations.php'; 
+$v=new validations();
 $db = new DBconnections ();
 $username = $_POST ["username"];
 $pass = $_POST ["password"];
 $select = $_POST ["typeselect"];
-
-// $username= mysql_real_escape_string($username);
-// $pass= mysql_real_escape_string($pass);
 $hashpass = hash ( "md5", $pass );
-// echo $select;
-$result = $db->login ( $username, $hashpass, $select );
-// echo $result;
+//validate entered username
+if($v->usernameMatch($username)!=1)
+{
+	echo "<html>
+    <script>
+	    alert(\"Username must have only alphanumeric characters with length between 8 and 20!\");
+		window.history.back();
+	</script>
+</html>";
+die();
+}
+//validate entered password.
+if($v->passwordMatch($pass)!=1)
+{
+	echo "<html>
+    <script>
+	    alert(\"Password must contain atleast 1 uppercase,1 lowercase and 1 number! Length between 8 and 20\");
+		window.history.back();
+	</script>
+</html>";
+die();
+}
+//validate role
+if(strcmp("user",$select)!=0 && strcmp("employee",$select)!=0 && strcmp("admin",$select)!=0 )
+{
+	echo "<html>
+    <script>
+	    alert(\"You should select either a customer, an employee or an admin\");
+		window.history.back();
+	</script>
+</html>";
+die();
+}
+$result = $db->login( $username, $hashpass, $select );
+
 if ($result == 'fail') {
 	deleteSession();
 	echo "<html>

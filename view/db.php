@@ -1,6 +1,6 @@
 <?php
 // Connect to the database
-$con = mysql_connect("localhost","root","samurai");
+$con = mysql_connect("localhost","root","Shivguru096");
 // Make sure we connected succesfully
 if(! $con)
 {

@@ -3,7 +3,7 @@
 <link rel="stylesheet" type="text/css" href="employeelanging.css">
 </head>
 <body>
-<h4 align="center">Welcome user!</h4>
+<h4 align="center">Welcome Staff Member!</h4>
 <section id="landingPage">
 Hello, today is <?php echo date('l, F jS, Y'); ?>.
 <table>

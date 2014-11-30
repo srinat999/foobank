@@ -19,7 +19,7 @@ if(mysql_num_rows($result) != 1)
     <title>TUMonline Bank</title>
 </head>
 <body>
-<h2 align="center">Welcome user!</h2>
+<h2 align="center">Welcome Staff Member!</h2>
     
 <section id="landingPage">
     <form method="post" class="minimal" action="../controllers/deletecookie.php">
@@ -29,14 +29,13 @@ Hello, today is <?php echo date('l, F jS, Y'); ?>.
 <table align="center" style="width: 100%; border-spacing: 10px; padding: 20px; text-align: center">
 <caption>Pending User Approvals</caption>
 <tr>
-<th>User ID</th><th>Name</th><th>Registration Date</th><th>Email</th><th>Link</th>
+<th>User ID</th><th>Name</th><th>Registration Date</th><th>Email</th><th>Link</th><th>InitialAmt</th>
 </tr>
     
 <?php
 
 $result = mysql_query("SELECT username,fullname,registration_date,email,user_id FROM users WHERE is_active = 0 and role = 'user'");
 $numrows = mysql_num_rows($result);
-//echo $numrows;
 if($numrows==0)
 {
     echo "</table>";
@@ -56,10 +55,12 @@ else
                 <td>"; 
      echo "<input type=\"radio\" name=\"$transactions[4]\"  value=\"Accept\" id=\"accept\" >Accept</input>
                 <input type=\"radio\" name=\"$transactions[4]\"  value=\"Decline\" id= \"decline\" >Decline</input></td>
+           <td> <input type=\"text\" name=\"$i\" id=\"amt\" value=0></td>     
 </tr> 
 ";
     }
     echo "<tr>
+                    <td></td>
                     <td></td>
                     <td></td>
                     <td></td>

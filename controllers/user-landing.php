@@ -9,7 +9,9 @@ if(!isSessionActive() || !enforceRBAC('customer')) {
  	header("Location: ../view/login.html");
  	die();
 }
+
 $userid=$_SESSION['uid'];
+//echo $userid;
 ?>
 
 <html>

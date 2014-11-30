@@ -15,7 +15,7 @@ using std::ifstream;
 using std::stringstream;
 using std::string;
 
-const int MAX_CHARS_PER_LINE = 512;
+const int MAX_CHARS_PER_LINE = 50;
 const int MAX_TOKENS_PER_LINE = 2;
 const char*  DELIMITER = ",";
 
@@ -62,21 +62,21 @@ bool checkfloatoverflow(char* token){
 	
 	char* endtoken;
 	errno = 0;
-	strtod(token, &endtoken);
+	strtof(token, &endtoken);
 	if ((endtoken != token && *endtoken != '\0') || errno == ERANGE)
 		return false;
 	return true;
 }
-bool checksumoverflow(double sum, double sumtemp){
-	long double res = sum + sumtemp;
-	if (res > DBL_MAX)
+bool checksumoverflow(float sum, float sumtemp){
+	double res = sum + sumtemp;
+	if (res > FLT_MAX)
 			return false;
 	return true;
 }
 
 int main(int argc, char * ARGV [])
 {
-	  double sum = 0;
+	  float sum = 0;
 	  int dataflag = 0;
 	  stringstream ss,file_path,errorstream;
 	  ss << "{\"transactions\": [";
@@ -143,7 +143,7 @@ int main(int argc, char * ARGV [])
 			cout.setf(ios::showpoint);
 			//Construct a Json string 
 			ss << "{\"destacc\":" << token[0] << ",\"amount\":" << token[1] << "}, ";
-			double sumtemp = strtod(token[1],NULL);
+			double sumtemp = strtof(token[1],NULL);
 			
 			if(!(checksumoverflow(sum,sumtemp))) {
 				cout << "Invalid file";
