@@ -86,6 +86,16 @@ class validations{
 		{
 			return 0;;
 		}
+	}
+	public function codecheck($code)
+	{
+		if((preg_match("/^[a-zA-Z0-9]{32}$/",$code))) {
+			return 1;
+		}
+		else 
+		{
+			return 0;
+		}
 	}	
 }
 

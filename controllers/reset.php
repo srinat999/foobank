@@ -1,19 +1,29 @@
 <?php
 require_once('DbConnector.php');
-       
+include 'validations.php'; 
+$v=new validations();      
     if($_GET['c'])
     {
         $get_code = $_GET['c']; 
+        if($v->codecheck($get_code)!=1)
+		{
+			echo "<html>
+					<script>
+						alert(\"Password recovery failed\");
+						window.history.back();
+					</script>
+			    </html>";
+				die();
+		}
         $db = new DbConnector;
-        $query = "SELECT user_id,passreset,username FROM users where passreset='$get_code'"; //print_r($query);
-        $result = $db->execQuery($query); 
-        $numrows = mysqli_num_rows($result);
-        //print_r($numrows);
-		if($numrows == 1)
+        $result = $db->getPassResetInfo($get_code); 
+        $db->closeConnection();
+        //print_r($result);
+		if($result['user_id'] != 0)
 		{	
-	        $Results = mysqli_fetch_assoc($result); 
-			$db_code = $Results['passreset'];
-			$db_username = $Results['username']; //print_r($db_username);
+	         
+			$db_code = $result['passreset'];
+			$db_username = $result['username']; //print_r($db_username);
 			if($get_code == $db_code)
 			{
 ?>				

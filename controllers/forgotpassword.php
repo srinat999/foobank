@@ -1,25 +1,44 @@
 <?php
 require_once('DbConnector.php');
 require_once('../lib/PHPMailer/PHPMailerAutoload.php');
+include 'validations.php';
+$v=new validations();
 if(isset($_POST['submit'])) 
 {       //echo "1";   
 		$username = $_POST['username']; 
 		$email = $_POST['email'];
+		if($v->usernameMatch($username)!=1)
+		{
+			echo "<html>
+					<script>
+						alert(\"Please check your username.\");
+						window.history.back();
+					</script>
+			    </html>";
+				die();
+		}
+		if($v->emailMatch($email)!=1)
+		{
+			echo "<html>
+					<script>
+						alert(\"Please check your email.\");
+						window.history.back();
+					</script>
+			    </html>";
+				die();
+		}
 		$db = new DbConnector;
-		$query = "SELECT user_id, email FROM users where username='$username'";
-        $result = $db->execQuery($query); 
-        $numrows = mysqli_num_rows($result);
-        //print_r($numrows);
-		if($numrows!=0)
+		$result = $db->getUser($username);
+		if($result['user_id'] != 0)
 		{	
-				$row = mysqli_fetch_assoc($result);
-				print_r($row);
-				$db_email = $row['email']; 
-				$userid = $row['user_id']; 
+				
+				//print_r($row);
+				$db_email = $result['email']; 
+				$userid = $result['user_id']; 
 				if($email == $db_email)
 				{	
 					//$code = md5(90*13+$Results['userid']);
-					$code = md5(rand(999, 99999)+$Results['userid']);
+					$code = md5(rand(99, 999999)+$Results['userid']);
 					$mail = new PHPMailer();
 					$mail->SetFrom('securebankingcode@gmail.com', 'TUM International Bank');
 					$address = $email;
@@ -34,12 +53,13 @@ if(isset($_POST['submit']))
 					   echo "Message sent!";
 						 }
 */						 
-					$db->execQuery("Update users SET passreset = '$code' WHERE username = '$username'");	
-					
+				//	$db->execQuery("Update users SET passreset = '$code' WHERE username = '$username'");	
+					$db->updateResetCode($code,$username);
+					$db->closeConnection();
 					 echo " 
 						<html>
 							<script>
-								alert(\"Your password reset link sent to your e-mail address\");
+								alert(\"Your password reset link is sent to your e-mail address\");
 								window.location.href = '../view/forgotpassword.html';
 							</script>
 						</html>	
@@ -70,7 +90,7 @@ if(isset($_POST['submit']))
 		<html>
 					<script>
 					alert(\"Username does not exists\");
-					window.location.href = 'forgotpassword.html';
+					window.location.href = '../view/forgotpassword.html';
 				</script>
 			</html>	
 		";
