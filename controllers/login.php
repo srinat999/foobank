@@ -42,7 +42,7 @@ if(strcmp("user",$select)!=0 && strcmp("employee",$select)!=0 && strcmp("admin",
 die();
 }
 $result = $db->login( $username, $hashpass, $select );
-echo $result;
+
 if ($result == 'fail') {
 	deleteSession();
 	echo "<html>
