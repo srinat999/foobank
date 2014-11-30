@@ -58,7 +58,7 @@ function checkEmployee($userid) {
 }
 
 function getTransacQuery($userid) {
-	$TRANSAC_QUERY = " SELECT u1.username AS src_userid, transactions.source_account AS src_account, u2.username AS dst_userid, transactions.destination_account AS dst_account, transactions.amount, transactions.creation_date, transactions.description, transactions.is_approved FROM users AS u1, transactions, users AS u2 WHERE transactions.user_id = u1.user_id AND transactions.dst_userid = u2.user_id AND (transactions.user_id = @@@ OR transactions.dst_userid = @@@)";
+	$TRANSAC_QUERY = " SELECT u1.username AS src_userid, transactions.source_account AS src_account, u2.username AS dst_userid, transactions.destination_account AS dst_account, transactions.amount, transactions.creation_date, transactions.description, transactions.is_approved FROM users AS u1, transactions, users AS u2 WHERE transactions.user_id = u1.user_id AND transactions.dst_userid = u2.user_id AND (transactions.user_id = @@@ OR transactions.dst_userid = @@@) ORDER BY creation_date DESC";
 	$query = str_replace("@@@", $userid, $TRANSAC_QUERY); 
 	return str_replace("@@@", $userid, $TRANSAC_QUERY);
 }

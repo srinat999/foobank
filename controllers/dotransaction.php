@@ -90,7 +90,7 @@ if ($row[0] == 'email') {
 	}
 } else {
 	$_SESSION['tranauth']='scs';
-	$_SESSION['clientPIN']=$clientPIN;
+	$_SESSION['clientPIN']=$row[1];
 }
 mysql_close($con);
 ?>

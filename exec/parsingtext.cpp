@@ -82,8 +82,8 @@ int main(int argc, char * ARGV [])
 	  ss << "{\"transactions\": [";
 	  string jsontemp,jsontrans,json,file,error;
 	  ifstream fin;
-//	  file_path << ARGV[1];
-	  file_path << "data.txt";
+	  file_path << ARGV[1];
+	  //file_path << "data.txt";
 	  file = file_path.str();
 	  fin.open(file.c_str()); // open the file
 	  if (!fin.good()) 

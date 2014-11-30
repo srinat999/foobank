@@ -5,7 +5,7 @@ class DBconnections {
 
     public function login( $id,$pass,$type )
     {
-        $mysqli = new mysqli('localhost', 'root', 'Shivguru096', 'foobank');
+        $mysqli = new mysqli('localhost', 'root', 'secret', 'foobank');
 
    if(mysqli_connect_errno()) {
       echo "Connection Failed: " . mysqli_connect_errno();

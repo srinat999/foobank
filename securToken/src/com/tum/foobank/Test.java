@@ -9,7 +9,8 @@ public class Test {
 
     public static void main(String[] args) {
         try {
-        	System.out.print(TokenUtil.getCode("1234", "/var/www/html/foobank/securToken/data.txt"));
+        	//System.out.print(TokenUtil.getCode("969172", "/var/www/html/foobank/exec/batchfile.txt"));
+            System.out.print(TokenUtil.getCode("969172", "1", "5678"));
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
         } catch (Exception e) {

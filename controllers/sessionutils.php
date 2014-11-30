@@ -27,4 +27,15 @@ function enforceRBAC($role) {
 		return true;
 	}
 }
+
+function enforceRBACmulti($roles) {
+	session_start();
+	foreach ($roles as $role) {
+		if($_SESSION['role']==$role) {
+			return true;
+		} 
+	}
+	deleteSession();
+	return false;
+}
 ?>

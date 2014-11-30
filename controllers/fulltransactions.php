@@ -3,7 +3,8 @@ include 'db.php';
 include 'utils.php';
 include 'sessionutils.php';
 
-if(!isSessionActive() || !enforceRBAC('customer')) {
+$roles = array('customer', 'employee');
+if(!isSessionActive() || !enforceRBACmulti($roles)) {
 	header("Location: ../view/login.html");
 	die();
 }
