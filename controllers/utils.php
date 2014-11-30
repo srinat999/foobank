@@ -62,4 +62,13 @@ function getTransacQuery($userid) {
 	$query = str_replace("@@@", $userid, $TRANSAC_QUERY); 
 	return str_replace("@@@", $userid, $TRANSAC_QUERY);
 }
+
+function checkSCS($userid) {
+    $result = mysql_query("SELECT * FROM users WHERE user_id =$userid AND tranauth = 'scs'");
+	if(mysql_num_rows($result) == 1)
+		return 1;
+	else
+		return 0;
+			
+}
 ?>

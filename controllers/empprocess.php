@@ -82,6 +82,6 @@ foreach ( $_POST as $key => $value ) {
 }
 
 $db->closeConnection ();
-//header ( 'Location: employeelanding.php' );
+header ( 'Location: employeelanding.php' );
 
 ?>

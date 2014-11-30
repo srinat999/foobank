@@ -5,7 +5,7 @@ require_once ('DbConnector.php');
 session_start();
 $account=$_SESSION['account'];
 $db = new DbConnector ();
-$userid = getAccountNumber($account);
+$userid = getUserId($account);
 $result = $db->execQuery(getTransacQuery($userid));
 
 $numrows = mysqli_num_rows ( $result ); 
