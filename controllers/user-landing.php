@@ -124,8 +124,8 @@ $userid=$_SESSION['uid'];
 					<td>
 						<p>
 							Please create a .txt file with your transactions with each line
-							in the below format:</br> "Destination Account1","Amount1"</br>
-							"Destination Account2","Amount2"</br>
+							in the below format:</br> "Destination Account1","Amount1",</br>
+							"Destination Account2","Amount2",</br>
 						</p>
 					</td>
 				</tr>

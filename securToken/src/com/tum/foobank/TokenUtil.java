@@ -172,7 +172,10 @@ public class TokenUtil {
             } else if (args.length == 4) {
             	// single transaction
                 System.out.print(isCodeValid(args[0], args[1], args[2], args[3]));
-            } else {
+              }  else if(args.length == 2) {
+					System.out.print(getCode(args[0], args[1]));
+				}
+             else {
             	System.out.print("Invalid inputs");
             }
         } catch (Exception e) {

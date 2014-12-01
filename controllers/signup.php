@@ -102,51 +102,11 @@ elseif($result=='notexist')
 	{
 		echo "  <html>
         <script>
-            alert(\"Signup Successful! Please login now.\");
+            alert(\"Signup Successful! Please wait for activation mail.\");
             window.location.href = '../view/login.html';
         </script>
     </html>	";
 	}
 }
-/*
-// Connect to the database
-$con = mysql_connect("localhost","root","secret");
-=======
->>>>>>> bcbb90f7f867515fbbae8790385280a85027b625
-// Make sure we connected succesfully
-if (! $con) {
-	die ( 'Connection Failed' . mysql_error () );
-}
-
-$result = mysql_query ( "select * from users where username = '$uid'" );
-if (mysql_num_rows ( $result ) > 0) {
-	echo "  <html>
-    <script>
-	    alert(\"Username Already exist! Please try another user name\");
-		window.history.back();
-	</script>
-</html>	";
-} 
-
-else {
-	
-	$user_id = genUserid ();
-	if (! mysql_query ( "INSERT INTO users(username,fullname,password,email,role,registration_date,is_active,user_id,tranauth) VALUES ( '$uid' , '$fullname' , '$hashpass', '$email' , '$role','$timestamp',0,$user_id,'$tranauth') ;" )) {
-		die ( 'Error: ' . mysql_error ( $con ) );
-	} else {
-		
-		echo "  <html>
-        <script>
-            alert(\"Signup Successful! Please login now.\");
-            window.location.href = '../view/login.html';
-        </script>
-    </html>	";
-		// header('Location: ScTeam11/login.html');
-	}
-}
-<<<<<<< HEAD
-mysql_close($con);
-*/
-
 
 ?>
