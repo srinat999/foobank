@@ -91,14 +91,12 @@ int main(int argc, char * ARGV [])
 	  
 	  // read each line of the file
 	  while (!fin.eof())
-	  {
-		  
+	  {		  
 		    // read an entire line into memory
 		    char buf[MAX_CHARS_PER_LINE];
 		    fin.getline(buf, MAX_CHARS_PER_LINE);
 		    
 			int n = 0; 
-		    
 		    // array to store memory addresses of the tokens in buf
 		    char* token[MAX_TOKENS_PER_LINE] = {}; // initialize to 0
 		    
@@ -114,19 +112,21 @@ int main(int argc, char * ARGV [])
 			      for (n = 1; n < MAX_TOKENS_PER_LINE; n++)
 			      {
 				        token[n] = strtok(0, DELIMITER); // subsequent tokens
+				        if (!token[n]) {   // no more tokens
+							cout << "Invalid file";
+							return 0;							
+						}; 
 				        if(!checktokenfloat(token[n])){
 							cout << "Invalid file";
 							return 0;
 						}
-						dataflag = 1;
-				        if (!token[n]) break; // no more tokens
+						dataflag = 1;				        
 			      }
 		    }
 			else
 			{
 				continue;
 			}
-		
 			
 			if(!(checkintoverflow(token[0]))) {
 				cout << "Invalid file";
