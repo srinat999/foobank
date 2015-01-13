@@ -44,14 +44,39 @@ die();
 $result = $db->login( $username, $hashpass, $select );
 
 if ($result == 'fail') {
-	deleteSession();
+	deleteSession(); 
+	
+	if(($db->isUserExist($username)) == 'exist'){ 
+		if($db->getFailedAttempts($username) >= 5)
+		{
+			echo "<html>
+						<script>
+							alert(\"Your account has been bloacked, please contact the bank\");
+							window.history.back();
+						</script>
+					</html>";
+					die();
+		}
+		else
+		{
+			$db->setFailedAttempts($username);
+				echo "<html>
+				<script>
+					alert(\"Login failed! Incorrect username or password.\");
+					window.history.back();
+				</script>
+			</html>";
+				die();
+		}
+		
+	}
 	echo "<html>
-    <script>
-	    alert(\"Login failed! Incorrect username or password.\");
-		window.history.back();
-	</script>
-</html>";
-	die();
+				<script>
+					alert(\"Login failed! Incorrect username or password.\");
+					window.history.back();
+				</script>
+			</html>";
+				die();
 } elseif ($result == 'roleerror') {
 	deleteSession();
 	echo "<html>
@@ -62,20 +87,52 @@ if ($result == 'fail') {
         </html>";
 	die();
 } elseif ($result == 'userlogin') {
+	if($db->getFailedAttempts($username) >= 5)
+	{
+		echo "<html>
+				<script>
+					alert(\"Your account has been bloacked, please contact the bank\");
+					window.history.back();
+				</script>
+			</html>";
+			die();
+	}
 	$_SESSION['lastActivity']=time();
 	$_SESSION['role']='customer';
+	$db->resetFailedAttempts($username);
 	echo "  <html>
     <script>
     	window.top.location.href = '../controllers/user-landing.php';
 	</script>
 </html>	";
 } elseif ($result == 'employeelogin') {
+	if($db->getFailedAttempts($username) >= 5)
+	{
+		echo "<html>
+				<script>
+					alert(\"Your account has been bloacked, please contact the bank\");
+					window.history.back();
+				</script>
+			</html>";
+			die();
+	}
 	$_SESSION['role']='employee';
 	$_SESSION['lastActivity']=time();
+	$db->resetFailedAttempts($username);
 	echo "  <html>  <script> window.top.location.href = '../controllers/employeelanding.php';
 	               </script>
                    </html>	";
 } else {
+	if($db->getFailedAttempts($username) >= 5)
+	{
+		echo "<html>
+				<script>
+					alert(\"Your account has been bloacked, please contact the bank\");
+					window.history.back();
+				</script>
+			</html>";
+			die();
+	}
 	$_SESSION['role']='admin';
 	$_SESSION['lastActivity']=time();
 	echo "  <html>
