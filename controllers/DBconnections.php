@@ -164,7 +164,46 @@ class DBconnections {
     	}
     }
 
+	public function getFailedAttempts($username){
+		$mysqli = new mysqli('localhost', 'root', 'Shivguru096', 'foobank');
+    	
+    	if(mysqli_connect_errno()) {
+    		echo "Connection Failed: " . mysqli_connect_errno();
+    		exit();
+    	}
+		$query = "Select failed_attempt_count from users where username = '$username'";
+		$result = mysqli_query($mysqli, $query); 
+		$result = mysqli_fetch_assoc($result);
+		$mysqli -> close(); 
+		return $result['failed_attempt_count'];
+	}
 	
+	public function setFailedAttempts($username){
+		$mysqli = new mysqli('localhost', 'root', 'Shivguru096', 'foobank');
+    	
+    	if(mysqli_connect_errno()) {
+    		echo "Connection Failed: " . mysqli_connect_errno();
+    		exit();
+    	}
+    	$count = $this->getFailedAttempts($username); 
+    	$count = $count + 1;
+		$query = "Update users set failed_attempt_count = '$count' where username = '$username'";
+		$result = mysqli_query($mysqli, $query);
+		$mysqli -> close();
+	}
+	
+	public function resetFailedAttempts($username){
+		$mysqli = new mysqli('localhost', 'root', 'Shivguru096', 'foobank');
+    	
+    	if(mysqli_connect_errno()) {
+    		echo "Connection Failed: " . mysqli_connect_errno();
+    		exit();
+    	}
+
+		$query = "Update users set failed_attempt_count = 0 where username = '$username'";
+		$result = mysqli_query($mysqli, $query);
+		$mysqli -> close();
+	}
 }
 
 ?>
