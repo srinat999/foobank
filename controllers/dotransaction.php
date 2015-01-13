@@ -116,7 +116,7 @@ mysql_close($con);
 								}
 							?>
 							<input type="text" name="tan" class="landingText" id="tan"
-							required="required" maxlength="15" />
+							required="required" maxlength="15" pattern="^[a-zA-Z0-9]{10,15}$" placeholder="Enter TAN ( 10 or 15 alphanumeric characters )"/>
 					</label></td>
 				</tr>
 			</table>
