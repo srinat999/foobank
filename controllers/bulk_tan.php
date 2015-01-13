@@ -10,8 +10,9 @@ if(!isSessionActive() || !enforceRBAC('customer')) {
 
 $userid=$_SESSION['uid'];
 $row = getTransAuthMode($userid);
-move_uploaded_file($_FILES["batchfile"]["tmp_name"], "/tmp/batchfile.txt");
-
+$filename = substr(sha1(rand()), 0, 7).".txt";
+move_uploaded_file($_FILES["batchfile"]["tmp_name"], "/tmp/$filename");
+$_SESSION['batchfile']=$filename;
 if ($row[0] == 'email') {
 	while ( true ) {
 		$tan_seq = rand ( 0, 99 );

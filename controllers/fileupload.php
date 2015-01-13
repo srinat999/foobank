@@ -4,14 +4,25 @@
 include 'utils.php';
 include 'db.php';
 include 'sessionutils.php';
+include 'validations.php';
 
 if(!isSessionActive() || !enforceRBAC('customer')) {
 	header("Location: ../view/login.html");
 	die();
 }
 
-$userid=$_SESSION['uid'];
+// Validate the entered code
+$v = new validations();
 $tan=$_POST["tan"];
+if($v->tanMatch($tan)!=1) {
+	mysql_close($con);
+	$_SESSION['error']=3;
+	header("Location: ../view/error.php");
+	die();
+}
+
+// Check the transaction authentication code
+$userid=$_SESSION['uid'];
 $tanInSession=$_SESSION['tan'];
 $clientPIN=$_SESSION['clientPIN'];
 if (($_SESSION['tranauth']=='email') && ($tanInSession!=$tan)) {
@@ -32,15 +43,19 @@ if (($_SESSION['tranauth']=='email') && ($tanInSession!=$tan)) {
 	
 }
 
-$batchstring=shell_exec("../exec/parsing /tmp/batchfile.txt");
+// Call the C++ binary
+$batchfile = $_SESSION['batchfile'];
+$batchstring=shell_exec("../exec/parsing /tmp/$batchfile");
+unlink("/tmp/$batchfile");
 $jsonobj=json_decode($batchstring);
-
 if (!$jsonobj) {
 	mysql_close($con);
 	$_SESSION['error']=6;
 	header("Location: ../view/error.php");
 	die();
 }
+
+// Process the response returned by the binary
 $invalidaccounts=array();
 if (checkBalance($userid, $jsonobj->sum)) {
 	$src_account = getAccountNumber($userid);
