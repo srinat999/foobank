@@ -3,6 +3,7 @@ include 'db.php';
 include 'utils.php';
 include 'sessionutils.php';
 include 'validations.php'; 
+header("X-FRAME-OPTIONS: DENY");
 $v=new validations();
 if(!isSessionActive() || !enforceRBAC('customer')) {
  	header("Location: ../view/login.html");

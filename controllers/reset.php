@@ -1,6 +1,7 @@
 <?php
 require_once('DbConnector.php');
 include 'validations.php'; 
+header("X-FRAME-OPTIONS: DENY");
 $v=new validations();      
     if($_GET['c'])
     {

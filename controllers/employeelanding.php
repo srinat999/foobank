@@ -2,7 +2,7 @@
 include 'db.php';	
 include 'utils.php';
 include 'sessionutils.php';
-
+header("X-FRAME-OPTIONS: DENY");
 if(!isSessionActive() || !enforceRBAC('employee')) {
 	deleteSession();
  	header("Location: ../view/login.html");

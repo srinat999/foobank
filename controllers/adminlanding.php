@@ -1,7 +1,7 @@
 <?php
 require_once 'DbConnector.php';
 include 'sessionutils.php';
-
+header("X-FRAME-OPTIONS: DENY");
 if(!isSessionActive() || !enforceRBAC('admin')) {
 	header("Location: ../view/login.html");
 	die();
