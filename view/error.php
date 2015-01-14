@@ -34,6 +34,9 @@
 			case 8:
 				echo "<h3 align='center'>Internal Error occurred. Please try again.</h3>";
 				break;
+			case 9:
+				echo "<h3 align='center'>Max file size exceeded. Please upload a file less than 10MB</h3>";
+				break;
 		}
 		if ($_SESSION['error']==7) {
 			echo "<a href=\"../controllers/employeelanding.php\">Back</a>";

@@ -2,20 +2,33 @@
 include 'db.php';
 include 'utils.php';
 include 'sessionutils.php';
+include 'validations.php';
 
 if(!isSessionActive() || !enforceRBAC('customer')) {
 	header("Location: ../view/login.html");
 	die();
 }
 
+// Validate the file size
+$v = new validations();
+if (!$v->checkFilesize($_FILES["batchfile"]["tmp_name"])) {
+	mysql_close($con);
+	$_SESSION['error']=9;
+	header("Location: ../view/error.php");
+	die();
+}
+
+// Pre-processing of file.
 $userid=$_SESSION['uid'];
 $row = getTransAuthMode($userid);
 $filename = substr(sha1(rand()), 0, 7).".txt";
 move_uploaded_file($_FILES["batchfile"]["tmp_name"], "/tmp/$filename");
 $_SESSION['batchfile']=$filename;
+
+// Check the tan authentication mode
 if ($row[0] == 'email') {
-	while ( true ) {
-		$tan_seq = rand ( 0, 99 );
+	for($i=0; $i<100; $i++) {
+		$tan_seq = rand (1, 100);
 		$result = mysql_query ( "SELECT tan,expired from tan_numbers where seq_number=$tan_seq and user_id=$userid" );
 		$row = mysql_fetch_array ( $result );
 		if ($row [1] == 0) {

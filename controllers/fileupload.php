@@ -82,5 +82,6 @@ if (checkBalance($userid, $jsonobj->sum)) {
 	mysql_close($con);
 	$_SESSION['error']=5;
 	header("Location: ../view/error.php");
+	die();
 }
 ?>

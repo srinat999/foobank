@@ -14,6 +14,7 @@ function isSessionActive() {
 
 function deleteSession() {
 	session_start();
+	setcookie("PHPSESSID", "", time() - 3600, '/');
 	session_unset();
 	session_destroy();
 }
