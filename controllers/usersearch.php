@@ -3,6 +3,7 @@ include 'db.php';
 include 'utils.php';
 include 'sessionutils.php';
 include 'validations.php'; 
+header("X-FRAME-OPTIONS: DENY");
 $v=new validations();
 if(!isSessionActive() || !enforceRBAC('employee')) {
  	header("Location: ../view/login.html");
@@ -10,14 +11,7 @@ if(!isSessionActive() || !enforceRBAC('employee')) {
 }
 $userid=$_SESSION['uid'];
 $account=$_POST['accno'];
-$result = mysql_query("SELECT * FROM accounts WHERE account_num=$account");
-$rows=mysql_num_rows($result);
-if ($rows==0) {
-	mysql_close($con);
-	$_SESSION['error']=7;
-	header("Location: ../view/error.php");
-}
-//validate entered username
+//validate entered account number
 if($v->accnoMatch($account)!=1)
 {
 	echo "<html>
@@ -28,6 +22,14 @@ if($v->accnoMatch($account)!=1)
 </html>";
 die();
 } 
+$result = mysql_query("SELECT * FROM accounts WHERE account_num=$account");
+$rows=mysql_num_rows($result);
+if ($rows==0) {
+	mysql_close($con);
+	$_SESSION['error']=7;
+	header("Location: ../view/error.php");
+}
+
 ?>
 <html>
 <head>

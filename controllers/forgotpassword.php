@@ -60,7 +60,7 @@ if(isset($_POST['submit']))
 						<html>
 							<script>
 								alert(\"Your password reset link is sent to your e-mail address\");
-								window.location.href = '../view/forgotpassword.html';
+								window.location.href = '../view/login.html';
 							</script>
 						</html>	
 				";	

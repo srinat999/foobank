@@ -1,7 +1,8 @@
 <html>
 <head>
-    <link rel="stylesheet" type="text/css" href="login.css">
-    </head>
+	<meta http-equiv="X-FRAME-OPTIONS" content="DENY"> 
+    <link rel="stylesheet" type="text/css" href="login.css">    
+</head>
    
 <body>
 <section id="loginBox">
@@ -9,7 +10,7 @@
 	<form method="post" class="minimal" action="../controllers/login.php">
 		<label for="username">
 			Username:
-			<input type="text" name="username" id="username" placeholder="Username must be between 8 and 20 characters" pattern="^[a-zA-Z][a-zA-Z0-9-_\.]{8,20}$" required="required" />
+			<input type="text" name="username" id="username" placeholder="Username must be between 8 and 20 characters" pattern="^[a-zA-Z][a-zA-Z0-9-_\.]{7,20}$" required="required" />
 		</label>
 		<label for="password">
 			Password:

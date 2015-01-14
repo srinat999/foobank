@@ -2,7 +2,7 @@
 include 'db.php';
 include 'utils.php';
 include 'sessionutils.php';
-
+header("X-FRAME-OPTIONS: DENY");
 $roles = array('customer', 'employee');
 if(!isSessionActive() || !enforceRBACmulti($roles)) {
 	header("Location: ../view/login.html");

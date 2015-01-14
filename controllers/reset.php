@@ -1,6 +1,7 @@
 <?php
 require_once('DbConnector.php');
 include 'validations.php'; 
+header("X-FRAME-OPTIONS: DENY");
 $v=new validations();      
     if($_GET['c'])
     {
@@ -35,7 +36,7 @@ $v=new validations();
 						<body>
 						<section id="loginBox">
 						
-						<form name='forgotpassword' class='minimal' action='completereset.php?c=$get_code' onsubmit='validateForm();' method='post'>
+						<form name='forgotpassword' class='minimal' action='completereset.php?c=<?php echo $get_code; ?>' onsubmit='validateForm();' method='post'>
 				  		<label for="password">
 						Password:
 						<input type="password" name="newpass" id="newpass" placeholder="Password must contain 1 uppercase, lowercase and number" pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$" required="required" />
